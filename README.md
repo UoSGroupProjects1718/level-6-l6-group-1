@@ -1,4 +1,4 @@
-# Group Project
+# Level 6 Group 1
 
 This is the repository for your group project, keep it neat and well organised with sensible folder structures.
 
