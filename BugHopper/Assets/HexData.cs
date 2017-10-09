@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class HexData : MonoBehaviour {
 
 
@@ -42,6 +43,8 @@ public class HexData : MonoBehaviour {
         }
         else
         {
+            GMasterScript.Moves++;
+
             foreach (Transform child in HexHolder.transform)//Before we instantiate the object, destroy all previous ones
             {
                 if (child.name == GMasterScript.CurrentlySelected.ToString())
@@ -52,7 +55,6 @@ public class HexData : MonoBehaviour {
 
                     //Set the CurrentlySelected to 0
                     GMasterScript.CurrentlySelected = 0;
-                    //GMasterScript.Moves++;
                     Debug.Log("Switched " + HexID + " And " + child.name);
                     break;
                 }

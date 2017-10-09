@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -10,21 +11,12 @@ public class GameManager : MonoBehaviour {
     public int Moves;
 
     public GameObject RedHexObject, GreenHexObject, BlueHexObject;
-    public GameObject HexParent;
+    public GameObject HexParent, MovesTextObject;
     HexData HexDataScript;
+    Text MovesText;
 
-    void Hexcreation(GameObject Hex, float x, float y, int ID)
+    void HexBoardCreation()
     {
-        GameObject HexChild = Instantiate(Hex, new Vector3(x, y, 0), Quaternion.identity); //Create the hex given to it
-        HexChild.transform.parent = HexParent.transform;//Set the just-created hex as a child
-        HexDataScript = HexChild.GetComponent<HexData>();//Get the HexData script from the newly instantiated child
-        HexDataScript.HexID = ID;//Give it an ID
-        HexChild.name = ID.ToString();
-    }
-
-    // Use this for initialization
-    void Start (){
-
         //Calculate the position to start at for this level
         float X = -Rows / 2f;
         float Y = -Columns / 2f;
@@ -49,19 +41,19 @@ public class GameManager : MonoBehaviour {
                 switch (Alternater)
                 {
                     case 1:
-                        Hexcreation(RedHexObject, X, Y, IDCounter);
+                        HexInstantiation(RedHexObject, X, Y, IDCounter);
                         Alternater++;
                         Debug.Log("Red");
                         break;
 
                     case 2:
-                        Hexcreation(GreenHexObject, X, Y, IDCounter);
+                        HexInstantiation(GreenHexObject, X, Y, IDCounter);
                         Alternater++;
                         Debug.Log("Green");
                         break;
 
                     case 3:
-                        Hexcreation(BlueHexObject, X, Y, IDCounter);
+                        HexInstantiation(BlueHexObject, X, Y, IDCounter);
                         Alternater = 1;
                         Debug.Log("Blue");
                         break;
@@ -74,15 +66,41 @@ public class GameManager : MonoBehaviour {
 
             Y += 1.5f;//Move the column
         }
+    }
 
+    void HexInstantiation(GameObject Hex, float x, float y, int ID)
+    {
+        GameObject HexChild = Instantiate(Hex, new Vector3(x, y, 0), Quaternion.identity); //Create the hex given to it
+        HexChild.transform.parent = HexParent.transform;//Set the just-created hex as a child
+        HexDataScript = HexChild.GetComponent<HexData>();//Get the HexData script from the newly instantiated child
+        HexDataScript.HexID = ID;//Give it an ID
+        HexChild.name = ID.ToString();
+    }
 
+    public void OnMouseDown()
+    {
+        foreach (Transform child in HexParent.transform)//Destroy the previous hexes
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        HexBoardCreation();//Then call HexBoardCreation to re-instantiate the hexes
+        Moves = 0;
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        MovesText = MovesTextObject.GetComponent<Text>();
+        HexBoardCreation();
 
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        MovesText.text = Moves.ToString();
 
 
-	}
+    }
+
 }
