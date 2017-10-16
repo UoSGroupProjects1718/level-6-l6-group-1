@@ -6,20 +6,17 @@ public class GameMaster : MonoBehaviour {
 
     public GameObject RedToad, BlueToad, PinkToad;
     public GameObject RedPad, BluePad, PinkPad;
-    private Rigidbody2D RedToadBody, BlueToadBody, PinkToadBody;
+    
 
-    public int NumberOfToads;//Sets the initial array size to store the toads
+    public int NumberOfToads;//Sets the number of toads to spawn that level
 
-    //Array of gameobjects
+    //List of gameobjects
     private List<GameObject> ToadList = new List<GameObject>();
 
 	// Use this for initialization
 	void Start ()
     {
-        //Get the rigidbodies for each of the toads we are using
-        RedToadBody = RedToad.GetComponent<Rigidbody2D>();
-        BlueToadBody = BlueToad.GetComponent<Rigidbody2D>();
-        PinkToadBody = PinkToad.GetComponent<Rigidbody2D>();
+
     }
 	
 	// Update is called once per frame
@@ -34,9 +31,5 @@ public class GameMaster : MonoBehaviour {
         }
 	}
 
-    //FixedUpdate is called at a fixed interval and is where all physics code should go
-    void FixedUpdate()
-    {
 
-    }
 }
