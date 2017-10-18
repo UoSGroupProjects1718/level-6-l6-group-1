@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//https://www.redblobgames.com/grids/hexagons/
+
+
 public class HexInfo : MonoBehaviour {
 
     //Info for each hex
