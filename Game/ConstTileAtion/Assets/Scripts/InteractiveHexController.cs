@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class InteractiveHexController : MonoBehaviour {
 
-    public Sprite sprite1, sprite2, sprite3;
+    public Sprite[] SpriteArray;
 
+    public enum HexType
+    {
+        Grey,
+        Red,
+        Blue,
+        Green,
+    }
+
+    public HexType CurrentHexType;
 
 
 	// Use this for initialization
