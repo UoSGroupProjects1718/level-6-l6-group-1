@@ -8,7 +8,7 @@ using UnityEngine;
 public class HexInfo : MonoBehaviour {
 
     //Info for each hex
-    public float X, Y, Z;
+    public int X, Y, Z;
     public int Layer;
     public GameObject HexGenerator;
 

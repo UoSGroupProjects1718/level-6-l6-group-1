@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class GameMaster : MonoBehaviour {
 
+    public GameObject HexPrefab;
+
     //Adds a header into the inspecter
-    [Header("Layer 0")]
+    [Header("Layers")]
+
     //Gameobject which is the parent of all that rings hexes
-    public GameObject RingHolder0;
-    //Array to hold all hex gameobjects
-    [SerializeField] GameObject[] HexRing0 = new GameObject[1];
+    public GameObject RingHolder0, RingHolder1, RingHolder2, RingHolder3;
+    //Array to hold all hex gameobjects, serialised to show in the inspector
+    [SerializeField] GameObject[]   HexRing0 = new GameObject[1],
+                                    HexRing1 = new GameObject[6],
+                                    HexRing2 = new GameObject[12],
+                                    HexRing3 = new GameObject[18];
+    [Header("GameInfo")]
+    public int LayersBeingUsed;
 
-    [Header("Layer 1")]
-    public GameObject RingHolder1;
-    [SerializeField] GameObject[] HexRing1 = new GameObject[6];
-
-    [Header("Layer 2")]
-    public GameObject RingHolder2;
-    [SerializeField] GameObject[] HexRing2 = new GameObject[12];
-
-    [Header("Layer 3")]
-    public GameObject RingHolder3;
-    [SerializeField] GameObject[] HexRing3 = new GameObject[18];
 
     //Useful thing to use later on
     //HexInfo ChildScript = child.GetComponent<HexInfo>();
@@ -36,20 +33,26 @@ public class GameMaster : MonoBehaviour {
         GetHexChildren(RingHolder2, out HexRing2);
         GetHexChildren(RingHolder3, out HexRing3);
 
+        //Then go through each of the children and instantiate a hex in its place
+        if (LayersBeingUsed >= 1)
+            InstantiateLayers(HexRing0);
+        if (LayersBeingUsed >= 2)
+            InstantiateLayers(HexRing1);
+        if (LayersBeingUsed >= 3)
+            InstantiateLayers(HexRing2);
+        if (LayersBeingUsed >= 4)
+            InstantiateLayers(HexRing3);
+        
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
 		
-
-
-
-
 	}
 
+    //
     void GetHexChildren(GameObject RingParent, out GameObject[] HexArray)
-
     {
         HexArray = new GameObject[RingParent.transform.childCount];
         for (int i=0; i< RingParent.transform.childCount; i++)
@@ -58,5 +61,25 @@ public class GameMaster : MonoBehaviour {
         }
         return;
 
+    }
+
+    //Called to instantiate each layer of InteractableHexs
+    void InstantiateLayers(GameObject[] Hexs)
+    {
+        for (int i = 0; i < Hexs.Length; i++)
+        {
+            //Instantiate the Hex prefab in the location of the "hexs" guide
+            GameObject NewHex = Instantiate(HexPrefab, new Vector3(Hexs[i].transform.position.x, Hexs[i].transform.position.y), Quaternion.identity);
+
+            //Get the script from the hex guide to get its coordinates
+            HexInfo GuideScript = Hexs[i].GetComponent<HexInfo>();
+
+            //Get the script from the newly created hex
+            InteractiveHexController Script = NewHex.GetComponent<InteractiveHexController>();
+
+            //Set the X and Y to be the one in the guide
+            Script.x = GuideScript.X;
+            Script.y = GuideScript.Y;
+        }
     }
 }
