@@ -99,6 +99,15 @@ public class GameMaster : MonoBehaviour {
             //Set the X and Y to be the one in the guide
             Script.x = GuideScript.X;
             Script.y = GuideScript.Y;
+
+            //Randomly assign a star sign to a tile, only 1/3 of the tiles will have signs
+            int random = Random.Range(1, 4);
+
+            if (random == 1)
+            {
+                Script.CurrentHexType = (InteractiveHexController.HexType)Random.Range(1, 14);
+            }
+
         }
     }
 }

@@ -64,6 +64,7 @@ public class InteractiveHexController : MonoBehaviour {
         //Find the gamemaster object
         GMaster = GameObject.Find("HexBaseHolder");
         GMScript = GMaster.GetComponent<GameMaster>();
+        SpriteChanger(CurrentHexType);
 
     }
 	
@@ -76,14 +77,15 @@ public class InteractiveHexController : MonoBehaviour {
     //Function to call SpriteChanger with the information already in the GameObject
     void CallSpriteChanger()
     {
-        int TempNo = (int)CurrentHexType;
+        HexType TempNo = CurrentHexType;
         SpriteChanger(TempNo);
     }
 
     //Function to call whenever the sprite needs changing
-    void SpriteChanger(int SpriteNum)
+    void SpriteChanger(HexType SpriteNum)
     {
-        switch (SpriteNum)
+        int intSpriteNum = (int)SpriteNum;
+        switch (intSpriteNum)
         {
             case 0:
                 SprRenderer.sprite = null;
@@ -135,9 +137,17 @@ public class InteractiveHexController : MonoBehaviour {
 
     public void OnMouseDown()
     {
+
+
         //If nothing has been selected yet
         if (GMScript.Clicked == false)
         {
+            //Check if the tile is null, and if it is then ignore the click
+            //if (CurrentHexType == 0)
+            //{
+            //    return;
+            //}
+
             //Set this as the currently selected hex
             GMScript.CurrentlySelected = this.gameObject;
             GMScript.Clicked = true;
@@ -165,12 +175,12 @@ public class InteractiveHexController : MonoBehaviour {
                 CurrentlySelectedScript.y = OldY;
 
                 GMScript.Clicked = false;
-                Debug.Log("Switched: " + OldX + "," + OldY + " With " + x + "," + y);
+                Debug.Log("Switched: " + CurrentlySelectedScript.x + "," + CurrentlySelectedScript.y + " With " + OldX + "," + OldY);
             }
             else
             {
                 GMScript.Clicked = false;
-                Debug.Log("Can't switch: " + OldX + "," + OldY + " With " + x + "," + y);
+                Debug.Log("Can't switch: " + CurrentlySelectedScript.x + "," + CurrentlySelectedScript.y + " With " + OldX + "," + OldY);
                 return;
             }
             //Increment the moves counter
@@ -182,9 +192,9 @@ public class InteractiveHexController : MonoBehaviour {
     public bool CompareX(InteractiveHexController Tile, int Tolerance)
     {
         //Compare this x to the 
-        if (this.x == Tile.x + Tolerance
-            ||
-            this.x == Tile.x - Tolerance)
+        if (this.x <= Tile.x + Tolerance
+            &&
+            this.x >= Tile.x - Tolerance)
         {
             return true;
         }
@@ -195,9 +205,9 @@ public class InteractiveHexController : MonoBehaviour {
     public bool CompareY(InteractiveHexController Tile, int Tolerance)
     {
         //Compare this x to the 
-        if (this.y == Tile.y + Tolerance
-            ||
-            this.y == Tile.y - Tolerance)
+        if (this.y <= Tile.y + Tolerance
+            &&
+            this.y >= Tile.y - Tolerance)
         {
             return true;
         }
