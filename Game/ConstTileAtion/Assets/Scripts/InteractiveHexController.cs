@@ -137,8 +137,6 @@ public class InteractiveHexController : MonoBehaviour {
 
     public void OnMouseDown()
     {
-
-
         //If nothing has been selected yet
         if (GMScript.Clicked == false)
         {
@@ -157,10 +155,6 @@ public class InteractiveHexController : MonoBehaviour {
             InteractiveHexController CurrentlySelectedScript = GMScript.CurrentlySelected.GetComponent<InteractiveHexController>();
             //Record old position and X/Y
             Vector3 OldPos = this.transform.position;
-            int OldX = x;
-            int OldY = y;
-            int NewX = CurrentlySelectedScript.x;
-            int NewY = CurrentlySelectedScript.y;
 
             //And if it is possible, switch them
             if (CompareX(CurrentlySelectedScript, 1) && CompareY(CurrentlySelectedScript, 1))
@@ -173,6 +167,7 @@ public class InteractiveHexController : MonoBehaviour {
                 int t = x;
                 x = CurrentlySelectedScript.x;
                 CurrentlySelectedScript.x = t;
+
                 //Switch the Y around
                 t = y;
                 y = CurrentlySelectedScript.y;
@@ -185,7 +180,7 @@ public class InteractiveHexController : MonoBehaviour {
             else
             {
                 GMScript.Clicked = false;
-                Debug.Log("Can't switch: " + CurrentlySelectedScript.x + "," + CurrentlySelectedScript.y + " With " + OldX + "," + OldY);
+                Debug.Log("Can't switch: " + CurrentlySelectedScript.x + "," + CurrentlySelectedScript.y + " With " + x + "," + y);
                 return;
             }
             //Increment the moves counter
