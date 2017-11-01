@@ -21,7 +21,7 @@ public class InteractiveHexController : MonoBehaviour {
     public Sprite Pisces;
    
 
-    //Enum to identify which tile this one is
+    //Enum to identify which tile type this is
     public enum HexType
     {
         Null,
@@ -40,7 +40,7 @@ public class InteractiveHexController : MonoBehaviour {
         Pisces
     }
 
-    //Enum holder
+    //Enum holder for this tile
     public HexType CurrentHexType;
 
     //Hex's current arbitrary coordinates on the hex grid
@@ -143,39 +143,44 @@ public class InteractiveHexController : MonoBehaviour {
         if (GMScript.Clicked == false)
         {
             //Check if the tile is null, and if it is then ignore the click
-            //if (CurrentHexType == 0)
-            //{
-            //    return;
-            //}
+            if (CurrentHexType != 0)
+            {
+                //Set this as the currently selected hex
+                GMScript.CurrentlySelected = this.gameObject;
+                GMScript.Clicked = true;
+            }
 
-            //Set this as the currently selected hex
-            GMScript.CurrentlySelected = this.gameObject;
-            GMScript.Clicked = true;
         }
         //If something has been selected, check if its possible to switch the two
         else
         {
             InteractiveHexController CurrentlySelectedScript = GMScript.CurrentlySelected.GetComponent<InteractiveHexController>();
-            //And if it is possible, switch them
             //Record old position and X/Y
             Vector3 OldPos = this.transform.position;
             int OldX = x;
             int OldY = y;
+            int NewX = CurrentlySelectedScript.x;
+            int NewY = CurrentlySelectedScript.y;
 
+            //And if it is possible, switch them
             if (CompareX(CurrentlySelectedScript, 1) && CompareY(CurrentlySelectedScript, 1))
             {
-                //Switch this with the previously selected tile and set its coordinates to be the new ones
+                //Switch the two tiles around
                 this.transform.position = GMScript.CurrentlySelected.transform.position;
-                x = CurrentlySelectedScript.x;
-                y = CurrentlySelectedScript.y;
-
-                //Now switch the  
                 GMScript.CurrentlySelected.transform.position = OldPos;
-                CurrentlySelectedScript.y = OldY;
-                CurrentlySelectedScript.y = OldY;
+
+                //Switch the X round
+                int t = x;
+                x = CurrentlySelectedScript.x;
+                CurrentlySelectedScript.x = t;
+                //Switch the Y around
+                t = y;
+                y = CurrentlySelectedScript.y;
+                CurrentlySelectedScript.y = t;
+
 
                 GMScript.Clicked = false;
-                Debug.Log("Switched: " + CurrentlySelectedScript.x + "," + CurrentlySelectedScript.y + " With " + OldX + "," + OldY);
+                Debug.Log("Switched: " + CurrentlySelectedScript.x + "," + CurrentlySelectedScript.y + " With " + x + "," + y);
             }
             else
             {
