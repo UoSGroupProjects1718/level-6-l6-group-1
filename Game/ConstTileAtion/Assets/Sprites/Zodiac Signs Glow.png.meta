@@ -1,21 +1,21 @@
 fileFormatVersion: 2
 guid: e4f38c1efb8796f48bbbca025eef5537
-timeCreated: 1509457392
+timeCreated: 1510061965
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Zodiac Signs Glow_0
-    21300002: Zodiac Signs Glow_1
-    21300004: Zodiac Signs Glow_2
-    21300006: Zodiac Signs Glow_3
-    21300008: Zodiac Signs Glow_4
-    21300010: Zodiac Signs Glow_5
-    21300012: Zodiac Signs Glow_6
-    21300014: Zodiac Signs Glow_7
-    21300016: Zodiac Signs Glow_8
-    21300018: Zodiac Signs Glow_9
-    21300020: Zodiac Signs Glow_10
-    21300022: Zodiac Signs Glow_11
+    21300000: Pisces
+    21300002: Libra
+    21300004: Cancer
+    21300006: Scorpio
+    21300008: Capricorn
+    21300010: Aries
+    21300012: Taurus
+    21300014: Gemini
+    21300016: Leo
+    21300018: Aquarius
+    21300020: Virgo
+    21300022: Sagittarius
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -82,7 +82,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Zodiac Signs Glow_0
+      name: Pisces
       rect:
         serializedVersion: 2
         x: 32
@@ -95,7 +95,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_1
+      name: Libra
       rect:
         serializedVersion: 2
         x: 180
@@ -108,7 +108,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_2
+      name: Cancer
       rect:
         serializedVersion: 2
         x: 307
@@ -121,7 +121,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_3
+      name: Scorpio
       rect:
         serializedVersion: 2
         x: 444
@@ -134,7 +134,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_4
+      name: Capricorn
       rect:
         serializedVersion: 2
         x: 434
@@ -147,7 +147,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_5
+      name: Aries
       rect:
         serializedVersion: 2
         x: 447
@@ -160,7 +160,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_6
+      name: Taurus
       rect:
         serializedVersion: 2
         x: 319
@@ -173,7 +173,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_7
+      name: Gemini
       rect:
         serializedVersion: 2
         x: 168
@@ -186,7 +186,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_8
+      name: Leo
       rect:
         serializedVersion: 2
         x: 34
@@ -199,7 +199,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_9
+      name: Aquarius
       rect:
         serializedVersion: 2
         x: 28
@@ -212,7 +212,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_10
+      name: Virgo
       rect:
         serializedVersion: 2
         x: 175
@@ -225,7 +225,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Zodiac Signs Glow_11
+      name: Sagittarius
       rect:
         serializedVersion: 2
         x: 306

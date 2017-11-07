@@ -20,9 +20,10 @@ public class GameMaster : MonoBehaviour {
     public GameObject TileHolder;
 
     [Header("GameInfo")]
-    [Range(1,4)]public int LayersBeingUsed;
-    public int Moves;
+    [Range(0,3)]public int LayersBeingUsed;
+    public int Moves, NumToWin;
     public bool Clicked = false;
+    public int CurrentlySelectedType;
     public GameObject CurrentlySelected;
 
 
@@ -39,29 +40,29 @@ public class GameMaster : MonoBehaviour {
         GetHexChildren(RingHolder2, out HexRing2);
         GetHexChildren(RingHolder3, out HexRing3);
 
+        NumToWin = CheckActiveTiles();
+
         //Then go through each of the children and instantiate a hex in its place.
         //At the same time, set the correct layer of the background to active
-        if (LayersBeingUsed >= 1)
+        if (LayersBeingUsed >= 0)
         {
-            InstantiateLayers(HexRing0);
             HexBackground_Center.SetActive(true);
+
+            if (LayersBeingUsed >= 1)
+            {
+                HexBackground_1.SetActive(true);
+
+                if (LayersBeingUsed >= 2)
+                {
+                    HexBackground_2.SetActive(true);
+
+                    if (LayersBeingUsed >= 3)
+                    {
+                        HexBackground_3.SetActive(true);
+                    }
+                }
+            }
         }
-        if (LayersBeingUsed >= 2)
-        {
-            InstantiateLayers(HexRing1);
-            HexBackground_1.SetActive(true);
-        }
-        if (LayersBeingUsed >= 3)
-        {
-            InstantiateLayers(HexRing2);
-            HexBackground_2.SetActive(true);
-        }
-        if (LayersBeingUsed >= 4)
-        {
-            InstantiateLayers(HexRing3);
-            HexBackground_3.SetActive(true);
-        }
-        
     }
 	
 	// Update is called once per frame
@@ -82,32 +83,56 @@ public class GameMaster : MonoBehaviour {
 
     }
 
-    //Called to instantiate each layer of InteractableHexs
-    void InstantiateLayers(GameObject[] Hexs)
+    //Checks if the game has been won yet
+    bool WinCheck()
     {
-        for (int i = 0; i < Hexs.Length; i++)
+        foreach (Transform Child in TileHolder.transform)
         {
-            //Instantiate the Hex prefab in the location of the "hexs" guide
-            GameObject NewHex = Instantiate(HexPrefab, new Vector3(Hexs[i].transform.position.x, Hexs[i].transform.position.y), Quaternion.identity);
-            NewHex.transform.parent = TileHolder.transform;
-            //Get the script from the hex guide to get its coordinates
-            HexInfo GuideScript = Hexs[i].GetComponent<HexInfo>();
-
-            //Get the script from the newly created hex
-            InteractiveHexController Script = NewHex.GetComponent<InteractiveHexController>();
-
-            //Set the X and Y to be the one in the guide
-            Script.x = GuideScript.X;
-            Script.y = GuideScript.Y;
-
-            //Randomly assign a star sign to a tile, only 1/3 of the tiles will have signs
-            int random = Random.Range(1, 4);
-
-            if (random == 1)
+            //Ignore if the child is Null
+            if (Child.GetComponent<HexInfo>().CurrentHexType == 0)
+                break;
+            //Else, call the TileWinCheck function with the X/Y of the gameobject
+            else
             {
-                Script.CurrentHexType = (InteractiveHexController.HexType)Random.Range(1, 14);
+                TileWinCheck(Child.GetComponent<HexInfo>().X, Child.GetComponent<HexInfo>().Y);
             }
-
         }
+        return false;
+    }
+
+    bool TileWinCheck(int TileX, int TileY)
+    {
+        foreach (Transform Holder in this.transform)
+        {
+            foreach (Transform Hex in Holder.transform)
+            {
+                if (Hex.GetComponent<HexInfo>().X == TileX && Hex.GetComponent<HexInfo>().Y == TileY)
+                {
+
+                }
+            }
+        }
+                return false;
+    }
+
+    int CheckActiveTiles()
+    {
+        int ActiveTiles = 0;
+        int LayerCounter = 0;
+        foreach (Transform Holder in TileHolder.transform)
+        {
+            if (LayerCounter < LayersBeingUsed)
+            {
+                foreach (Transform Hex in Holder.transform)
+                {
+                    if (Hex.GetComponent<HexInfo>().CurrentHexType != HexInfo.HexType.Null)
+                    {
+                        ActiveTiles++;
+                    }
+                }
+            }
+            LayerCounter++;
+        }
+        return ActiveTiles;
     }
 }
