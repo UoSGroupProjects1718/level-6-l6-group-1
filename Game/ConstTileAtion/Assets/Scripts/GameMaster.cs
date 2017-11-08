@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour {
 
@@ -39,8 +41,7 @@ public class GameMaster : MonoBehaviour {
         GetHexChildren(RingHolder1, out HexRing1);
         GetHexChildren(RingHolder2, out HexRing2);
         GetHexChildren(RingHolder3, out HexRing3);
-
-        NumToWin = CheckActiveTiles();
+        
 
         //Then go through each of the children and instantiate a hex in its place.
         //At the same time, set the correct layer of the background to active
@@ -64,11 +65,11 @@ public class GameMaster : MonoBehaviour {
             }
         }
     }
-	
+
 	// Update is called once per frame
 	void Update ()
     {
-		
+        
 	}
 
     //
@@ -115,24 +116,39 @@ public class GameMaster : MonoBehaviour {
                 return false;
     }
 
-    int CheckActiveTiles()
+
+
+    public void CheckWin()
     {
-        int ActiveTiles = 0;
-        int LayerCounter = 0;
-        foreach (Transform Holder in TileHolder.transform)
+        int Checkedcount = 0;
+        foreach (Transform Parent in this.transform)
         {
-            if (LayerCounter < LayersBeingUsed)
+            foreach (Transform Child in Parent.transform)
             {
-                foreach (Transform Hex in Holder.transform)
+                if (Child.GetComponent<HexInfo>().Checked)
                 {
-                    if (Hex.GetComponent<HexInfo>().CurrentHexType != HexInfo.HexType.Null)
-                    {
-                        ActiveTiles++;
-                    }
+                    Checkedcount++;
                 }
             }
-            LayerCounter++;
         }
-        return ActiveTiles;
+        if (Checkedcount >= NumToWin)
+        {
+            //Do thing that says you are going to win
+            Debug.Log("Winner!");
+            ResetGame();
+        } 
+    }
+
+    private void ResetGame()
+    {
+        NumToWin = 0;
+
+        foreach (Transform Parent in this.transform)
+        {
+            foreach (Transform Child in Parent.transform)
+            {
+                Child.GetComponent<HexInfo>().SetHexSprite();
+            }
+        }
     }
 }

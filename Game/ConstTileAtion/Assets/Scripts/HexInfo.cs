@@ -34,6 +34,9 @@ public class HexInfo : MonoBehaviour {
     }
     public HexType CurrentHexType;
 
+    //Bool to set to true if the object has been checked 
+    public bool Checked;
+
     //Sprite renderer, private because it will be set individually
     private SpriteRenderer SprRenderer;
 
@@ -50,19 +53,7 @@ public class HexInfo : MonoBehaviour {
 
         if (Layer <=GMScript.LayersBeingUsed)
         {
-
-            //Randomly assign a star sign to a tile, only 1/3 of the tiles will have signs
-            int random = Random.Range(1, 4);
-
-            if (random == 1)
-            {
-                CurrentHexType = (HexType)Random.Range(0, 13);
-            }
-            else
-            {
-                CurrentHexType = HexType.Null;
-            }
-            SpriteChanger();
+            SetHexSprite();
 
             //Find neighbors and add them to the neeighbor list
             foreach (Transform Holder in GMaster.transform)
@@ -82,9 +73,27 @@ public class HexInfo : MonoBehaviour {
             this.gameObject.SetActive(false);
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    public void SetHexSprite()
+    {
+        //Randomly assign a star sign to a tile, only 1/3 of the tiles will have signs
+        int random = Random.Range(0, 4);
+
+        if (random == 0)
+        {
+            CurrentHexType = (HexType)Random.Range(0, 13);
+            //Add this to the number of non-null active tiles, to work out how many there need to be to win.
+            GMScript.NumToWin++;
+        }
+        else
+        {
+            CurrentHexType = HexType.Null;
+        }
+        SpriteChanger();
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
 		
 	}
@@ -119,12 +128,21 @@ public class HexInfo : MonoBehaviour {
         if (GMScript.Clicked == false)
         {
             //Check if the tile is null, and if it is then ignore the click
-            if (CurrentHexType != 0)
+            if (CurrentHexType != HexType.Null)
             {
                 //Set this as the currently selected hex
                 GMScript.CurrentlySelected = this.gameObject;
                 GMScript.CurrentlySelectedType = (int)CurrentHexType;
                 GMScript.Clicked = true;
+
+                //Search through the entire array of Hex's and set them all to unchecked
+                foreach (Transform Parent in GMaster.transform)
+                {
+                    foreach (Transform Child in Parent.transform)
+                    {
+                        Child.GetComponent<HexInfo>().Checked = false;
+                    }
+                }
             }
 
         }
@@ -149,6 +167,8 @@ public class HexInfo : MonoBehaviour {
                 //Switch old hex to the new sprite
                 GMScript.CurrentlySelected.GetComponent<HexInfo>().SpriteChanger();
 
+                Checked = WinSearch();
+
                 Debug.Log("Switched: " + HexScript.X + "," + HexScript.Y + " With " + X + "," + Y);
             }
 
@@ -163,4 +183,27 @@ public class HexInfo : MonoBehaviour {
         }
     }
 
+
+    public bool WinSearch()
+    {
+        //Flip the Checked bool on this object to true
+        Checked = true;
+
+        foreach (GameObject Hex in Neighbors)
+        {
+            //If the neighbor type isn't null
+            if (Hex.GetComponent<HexInfo>().CurrentHexType != HexType.Null)
+            {
+                //And it hasn't already been checked
+                if (!Hex.GetComponent<HexInfo>().Checked)
+                {
+                    Hex.GetComponent<HexInfo>().WinSearch();
+                }
+            } 
+        }
+
+        GMScript.CheckWin();
+
+        return false;
+    }
 }
