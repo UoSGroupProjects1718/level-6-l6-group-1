@@ -168,8 +168,10 @@ public class HexInfo : MonoBehaviour {
                 GMScript.CurrentlySelected.GetComponent<HexInfo>().SpriteChanger();
 
                 Checked = WinSearch();
-
                 Debug.Log("Switched: " + HexScript.X + "," + HexScript.Y + " With " + X + "," + Y);
+                //Increment the moves counter
+                GMScript.Moves++;
+                GMScript.UpdateMoveCounter();
             }
 
             else
@@ -178,8 +180,6 @@ public class HexInfo : MonoBehaviour {
                 Debug.Log("Can't switch: " + HexScript.X + "," + HexScript.Y + " With " + X + "," + Y);
                 return;
             }
-            //Increment the moves counter
-            GMScript.Moves++;
         }
     }
 

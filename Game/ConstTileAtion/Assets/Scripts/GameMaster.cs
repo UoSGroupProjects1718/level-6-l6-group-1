@@ -13,12 +13,6 @@ public class GameMaster : MonoBehaviour {
 
     //Gameobject which is the parent of all that rings hexes
     public GameObject RingHolder0, RingHolder1, RingHolder2, RingHolder3;
-    
-    //Array to hold all hex gameobjects, serialised to show in the inspector
-    [SerializeField] GameObject[]   HexRing0 = new GameObject[1],
-                                    HexRing1 = new GameObject[6],
-                                    HexRing2 = new GameObject[12],
-                                    HexRing3 = new GameObject[18];
     public GameObject TileHolder;
 
     [Header("GameInfo")]
@@ -27,6 +21,7 @@ public class GameMaster : MonoBehaviour {
     public bool Clicked = false;
     public int CurrentlySelectedType;
     public GameObject CurrentlySelected;
+    public Text MoveCounter;
 
 
     //Useful thing to use later on
@@ -36,15 +31,7 @@ public class GameMaster : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //First, loop through each of the objects which are children of the ringholders and add them into the array
-        GetHexChildren(RingHolder0, out HexRing0);
-        GetHexChildren(RingHolder1, out HexRing1);
-        GetHexChildren(RingHolder2, out HexRing2);
-        GetHexChildren(RingHolder3, out HexRing3);
-        
-
-        //Then go through each of the children and instantiate a hex in its place.
-        //At the same time, set the correct layer of the background to active
+        //Set the correct layer of the background to active
         if (LayersBeingUsed >= 0)
         {
             HexBackground_Center.SetActive(true);
@@ -142,7 +129,7 @@ public class GameMaster : MonoBehaviour {
     private void ResetGame()
     {
         NumToWin = 0;
-
+        Moves = 0;
         foreach (Transform Parent in this.transform)
         {
             foreach (Transform Child in Parent.transform)
@@ -150,5 +137,10 @@ public class GameMaster : MonoBehaviour {
                 Child.GetComponent<HexInfo>().SetHexSprite();
             }
         }
+    }
+
+    public void UpdateMoveCounter()
+    {
+        MoveCounter.text = Moves.ToString();
     }
 }
