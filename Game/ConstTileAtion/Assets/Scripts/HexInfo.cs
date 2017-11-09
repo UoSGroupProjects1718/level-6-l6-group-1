@@ -10,7 +10,7 @@ public class HexInfo : MonoBehaviour {
     //Info for each hex
     public int X, Y;
     public int Layer;
-    public GameObject GMaster;
+    public GameObject GMaster, ClickedOverlay, OverlayParent;
     public GameMaster GMScript;
 
     public Sprite[] SpriteArray = new Sprite[13];
@@ -19,8 +19,7 @@ public class HexInfo : MonoBehaviour {
     {
         Aries,
         Taurus,
-        GeminiGood,
-        GeminiBad,
+        Gemini,
         Cancer,
         Leo,
         Virgo,
@@ -55,13 +54,13 @@ public class HexInfo : MonoBehaviour {
         {
             SetHexSprite();
 
-            //Find neighbors and add them to the neeighbor list
+            //Find neighbors and add them to the neighbor list
             foreach (Transform Holder in GMaster.transform)
             {
                 foreach (Transform Child in Holder.transform)
                 {
                     //If the Tile is within 1 of the current, add it to the neighbors list
-                    if (IsNeighbor1(X, Y, Child.GetComponent<HexInfo>().X, Child.GetComponent<HexInfo>().Y))
+                    if (IsNeighbor(X, Y, Child.GetComponent<HexInfo>().X, Child.GetComponent<HexInfo>().Y, 1))
                     {
                         Neighbors.Add(Child.gameObject);
                     }
@@ -74,14 +73,17 @@ public class HexInfo : MonoBehaviour {
         }
     }
 
+    //Set the sprites of the hexes, this will be run at the start of the game and every time it resets
     public void SetHexSprite()
     {
-        //Randomly assign a star sign to a tile, only 1/3 of the tiles will have signs
+        //Randomly assign a star sign to a tile, only 1/4 of the tiles will have signs
         int random = Random.Range(0, 4);
 
         if (random == 0)
         {
-            CurrentHexType = (HexType)Random.Range(0, 13);
+            GameObject Persistant = GameObject.Find("PersistantObject");
+            
+            CurrentHexType = (HexType)Persistant.GetComponent<PersistantInfo>().LevelType;//(HexType)Random.Range(0, HexType.GetNames(typeof(HexType)).Length);
             //Add this to the number of non-null active tiles, to work out how many there need to be to win.
             GMScript.NumToWin++;
         }
@@ -98,19 +100,20 @@ public class HexInfo : MonoBehaviour {
 		
 	}
 
-    public bool IsNeighbor1(int CurrentX, int CurrentY, int TargetX, int TargetY)
+    //Checks if two tiles are neighbors within a certain range
+    public bool IsNeighbor(int CurrentX, int CurrentY, int TargetX, int TargetY, int Offset)
     {
-        if (CurrentX == TargetX + 1 && CurrentY == TargetY)
+        if (CurrentX == TargetX + Offset && CurrentY == TargetY)
             return true;
-        if (CurrentX == TargetX - 1 && CurrentY == TargetY)
+        if (CurrentX == TargetX - Offset && CurrentY == TargetY)
             return true;
-        if (CurrentX == TargetX && CurrentY == TargetY + 1)
+        if (CurrentX == TargetX && CurrentY == TargetY + Offset)
             return true;
-        if (CurrentX == TargetX && CurrentY == TargetY - 1)
+        if (CurrentX == TargetX && CurrentY == TargetY - Offset)
             return true;
-        if (CurrentX == TargetX + 1 && CurrentY == TargetY - 1)
+        if (CurrentX == TargetX + Offset && CurrentY == TargetY - Offset)
             return true;
-        if (CurrentX == TargetX - 1 && CurrentY == TargetY + 1)
+        if (CurrentX == TargetX - Offset && CurrentY == TargetY + Offset)
             return true;
         else
             return false;
@@ -135,7 +138,7 @@ public class HexInfo : MonoBehaviour {
                 GMScript.CurrentlySelectedType = (int)CurrentHexType;
                 GMScript.Clicked = true;
 
-                //Search through the entire array of Hex's and set them all to unchecked
+                //Search through the all Hex's and set them to unchecked
                 foreach (Transform Parent in GMaster.transform)
                 {
                     foreach (Transform Child in Parent.transform)
@@ -143,47 +146,63 @@ public class HexInfo : MonoBehaviour {
                         Child.GetComponent<HexInfo>().Checked = false;
                     }
                 }
+                HightlightMoves(this.GetComponent<HexInfo>());
             }
 
         }
         //If something has been selected, check if its possible to switch the two
         else
         {
+            //Get the Hexinfo of the currently selected hex
             HexInfo HexScript = GMScript.CurrentlySelected.GetComponent<HexInfo>();
-            //And if it is possible, switch them
-            if (IsNeighbor1(X, Y, HexScript.X, HexScript.Y))
+            UnhighlightMoves();
+            switch (HexScript.CurrentHexType)
             {
-                //record current hex type
-                int TempType = (int)CurrentHexType;
-                //Set current hex type to be the same as the currently selected one
-                CurrentHexType = GMScript.CurrentlySelected.GetComponent<HexInfo>().CurrentHexType;
-                //Set the CurrentHexType of the other hex to be what this one was
-                GMScript.CurrentlySelected.GetComponent<HexInfo>().CurrentHexType = (HexType)TempType;
-                GMScript.Clicked = false;
+                //Basic Tile Movement
+                case HexType.Aries:
+                    if (IsNeighbor(X, Y, HexScript.X, HexScript.Y, 1))
+                    {
+                        Move(HexScript);
+                        break;
+                    }
+                    CantMove(HexScript);
+                    break;
+                //Knight movement (Skips over a tile)
+                case HexType.Taurus:
+                    if (IsNeighbor(X, Y, HexScript.X, HexScript.Y, 2))
+                    {
+                        Move(HexScript);
+                        break;
+                    }
+                    CantMove(HexScript);
+                    break;
+                case HexType.Gemini:
+                    if (IsNeighbor(X, Y, HexScript.X, HexScript.Y, 1))
+                    {
+                        GeminiMove(HexScript);
+                        break;
+                    }
+                    break;
+                case HexType.Cancer:
 
-                //Switch to the new sprite
-                SpriteChanger();
-
-                //Switch old hex to the new sprite
-                GMScript.CurrentlySelected.GetComponent<HexInfo>().SpriteChanger();
-
-                Checked = WinSearch();
-                Debug.Log("Switched: " + HexScript.X + "," + HexScript.Y + " With " + X + "," + Y);
-                //Increment the moves counter
-                GMScript.Moves++;
-                GMScript.UpdateMoveCounter();
-            }
-
-            else
-            {
-                GMScript.Clicked = false;
-                Debug.Log("Can't switch: " + HexScript.X + "," + HexScript.Y + " With " + X + "," + Y);
-                return;
+                case HexType.Leo:  
+                case HexType.Virgo:    
+                case HexType.Libra:
+                case HexType.Scorpio:
+                case HexType.Sagittarius:    
+                case HexType.Capricorn:    
+                case HexType.Aquarius:    
+                case HexType.Pisces:  
+                case HexType.Null: 
+                default:
+                    CantMove(HexScript);
+                    break;
+                    
             }
         }
     }
 
-
+    //Function to search hex's around it to see if they are connected
     public bool WinSearch()
     {
         //Flip the Checked bool on this object to true
@@ -205,5 +224,125 @@ public class HexInfo : MonoBehaviour {
         GMScript.CheckWin();
 
         return false;
+    }
+
+    //Basic Move function
+    void Move(HexInfo OtherHex)
+    {
+        //record current hex type
+        int TempType = (int)CurrentHexType;
+        //Set current hex type to be the same as the currently selected one
+        CurrentHexType = GMScript.CurrentlySelected.GetComponent<HexInfo>().CurrentHexType;
+        //Set the CurrentHexType of the other hex to be what this one was
+        GMScript.CurrentlySelected.GetComponent<HexInfo>().CurrentHexType = (HexType)TempType;
+        GMScript.Clicked = false;
+
+        //Switch to the new sprite
+        SpriteChanger();
+
+        //Switch old hex to the new sprite
+        GMScript.CurrentlySelected.GetComponent<HexInfo>().SpriteChanger();
+
+        Checked = WinSearch();
+        Debug.Log("Switched: " + OtherHex.X + "," + OtherHex.Y + " With " + X + "," + Y);
+        //Increment the moves counter
+        GMScript.Moves++;
+        GMScript.UpdateMoveCounter();
+    }
+
+    //Catapillar move for the gemini
+    void GeminiMove(HexInfo Hex)
+    {
+        //If the clicked on Hex type is Null
+        if (CurrentHexType == HexType.Null)
+        {
+            //Set this hex type to the other's
+            this.CurrentHexType = Hex.CurrentHexType;
+            GMScript.NumToWin++;
+
+            GMScript.Clicked = false;
+
+            //Switch to the new sprite
+            SpriteChanger();
+
+            //Switch old hex to the new sprite
+            GMScript.CurrentlySelected.GetComponent<HexInfo>().SpriteChanger();
+
+            Checked = WinSearch();
+            Debug.Log("Switched: " + Hex.X + "," + Hex.Y + " With " + X + "," + Y);
+            //Increment the moves counter
+            GMScript.Moves += 2;
+            GMScript.UpdateMoveCounter();
+        }
+    }
+
+    public void CantMove(HexInfo OtherHex)
+    {
+        GMScript.Clicked = false;
+        Debug.Log("Can't switch: " + OtherHex.X + "," + OtherHex.Y + " With " + X + "," + Y);
+    }
+
+    //Function to decide which type of highlighting should be used
+    void HightlightMoves(HexInfo Hex)
+    {
+        switch (CurrentHexType)
+        {
+            case HexType.Aries:
+                HighLightInstantiator(1, Hex);
+                break;
+            case HexType.Taurus:
+                HighLightInstantiator(2, Hex);
+                break;
+            case HexType.Gemini:
+                HighLightInstantiator(1, Hex);
+                break;
+            case HexType.Cancer:
+                break;
+            case HexType.Leo:
+                break;
+            case HexType.Virgo:
+                break;
+            case HexType.Libra:
+                break;
+            case HexType.Scorpio:
+                break;
+            case HexType.Sagittarius:
+                break;
+            case HexType.Capricorn:
+                break;
+            case HexType.Aquarius:
+                break;
+            case HexType.Pisces:
+                break;
+            case HexType.Null:
+                break;
+            default:
+                break;
+        }
+    }
+
+    void HighLightInstantiator(int I, HexInfo Hex)
+    {
+        //Run through all the Hex's and see if they are a viable target for the selected hex
+        foreach (Transform Parent in GMaster.transform)
+        {
+            foreach (Transform Child in Parent.transform)
+            {
+                if (IsNeighbor(Hex.X, Hex.Y, Child.GetComponent<HexInfo>().X, Child.GetComponent<HexInfo>().Y, I))
+                {
+                    GameObject Overlay = Instantiate(ClickedOverlay, new Vector3(Child.transform.position.x, Child.transform.position.y, Child.transform.position.z), Quaternion.identity);
+                    Overlay.transform.parent = OverlayParent.transform;
+                }
+
+            }
+        }
+    }
+
+    void UnhighlightMoves()
+    {
+        foreach (Transform item in OverlayParent.transform)
+        {
+            Destroy(item.gameObject);
+        }
     }
 }

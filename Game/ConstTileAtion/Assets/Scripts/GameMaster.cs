@@ -23,12 +23,7 @@ public class GameMaster : MonoBehaviour {
     public GameObject CurrentlySelected;
     public Text MoveCounter;
 
-
-    //Useful thing to use later on
-    //HexInfo ChildScript = child.GetComponent<HexInfo>();
-
-
-    // Use this for initialization
+        // Use this for initialization
     void Start()
     {
         //Set the correct layer of the background to active
