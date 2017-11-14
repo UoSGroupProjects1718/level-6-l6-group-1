@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //https://www.redblobgames.com/grids/hexagons/
 
@@ -42,6 +43,9 @@ public class HexInfo : MonoBehaviour {
     //List of neighbors
     public List<GameObject> Neighbors;
 
+    //Dropdown Menu to get values
+    public GameObject TileSetter;
+
     // Use this for initialization
     void Start ()
     {
@@ -81,11 +85,20 @@ public class HexInfo : MonoBehaviour {
 
         if (random == 0)
         {
+            //Find the gameobject that indicates this level was started from the title screen
             GameObject Persistant = GameObject.Find("PersistantObject");
-            
-            CurrentHexType = (HexType)Persistant.GetComponent<PersistantInfo>().LevelType;//(HexType)Random.Range(0, HexType.GetNames(typeof(HexType)).Length);
-            //Add this to the number of non-null active tiles, to work out how many there need to be to win.
-            GMScript.NumToWin++;
+
+            if (Persistant != null)
+            {
+                CurrentHexType = (HexType)Persistant.GetComponent<PersistantInfo>().LevelType;//(HexType)Random.Range(0, HexType.GetNames(typeof(HexType)).Length);
+                //Add this to the number of non-null active tiles, to work out how many there need to be to win.
+                GMScript.NumToWin++;
+            }
+            //And if it wasn't, then start editor mode
+            else
+            {
+                GMScript.EditMode = true;
+            }
         }
         else
         {
@@ -127,8 +140,12 @@ public class HexInfo : MonoBehaviour {
 
     public void OnMouseDown()
     {
+
+
+
+
         //If nothing has been selected yet
-        if (GMScript.Clicked == false)
+        if (GMScript.Clicked == false && !GMScript.EditMode)
         {
             //Check if the tile is null, and if it is then ignore the click
             if (CurrentHexType != HexType.Null)
@@ -151,7 +168,7 @@ public class HexInfo : MonoBehaviour {
 
         }
         //If something has been selected, check if its possible to switch the two
-        else
+        else if(!GMScript.EditMode)
         {
             //Get the Hexinfo of the currently selected hex
             HexInfo HexScript = GMScript.CurrentlySelected.GetComponent<HexInfo>();
@@ -184,7 +201,6 @@ public class HexInfo : MonoBehaviour {
                     }
                     break;
                 case HexType.Cancer:
-
                 case HexType.Leo:  
                 case HexType.Virgo:    
                 case HexType.Libra:

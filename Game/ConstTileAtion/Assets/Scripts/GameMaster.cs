@@ -22,9 +22,15 @@ public class GameMaster : MonoBehaviour {
     public int CurrentlySelectedType;
     public GameObject CurrentlySelected;
     public Text MoveCounter;
+    public bool EditMode = false;
 
         // Use this for initialization
     void Start()
+    {
+        LayerSetter();
+    }
+
+    public void LayerSetter()
     {
         //Set the correct layer of the background to active
         if (LayersBeingUsed >= 0)
@@ -48,22 +54,18 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update ()
     {
-        
-	}
-
-    //
-    void GetHexChildren(GameObject RingParent, out GameObject[] HexArray)
-    {
-        HexArray = new GameObject[RingParent.transform.childCount];
-        for (int i=0; i< RingParent.transform.childCount; i++)
+        //First check if the mouse-click was a right click
+        if (EditMode)
         {
-            HexArray[i]= RingParent.transform.GetChild(i).gameObject;
+            GMScript.CurrentlySelected = this.gameObject;
+            TileSetter.transform.position = this.transform.position;
+            Debug.Log("Should Have Moved");
+            //Return because we don't want the rest of this script executing
+            return;
         }
-        return;
-
     }
 
     //Checks if the game has been won yet
@@ -97,9 +99,7 @@ public class GameMaster : MonoBehaviour {
         }
                 return false;
     }
-
-
-
+    
     public void CheckWin()
     {
         int Checkedcount = 0;
