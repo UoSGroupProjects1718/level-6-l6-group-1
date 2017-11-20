@@ -23,6 +23,7 @@ public class GameMaster : MonoBehaviour {
     public GameObject CurrentlySelected;
     public Text MoveCounter;
     public bool EditMode = true;
+    public bool DisableHexes = false;
 
         // Use this for initialization
     void Start()

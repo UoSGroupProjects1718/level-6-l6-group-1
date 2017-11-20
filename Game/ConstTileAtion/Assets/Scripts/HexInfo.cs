@@ -32,6 +32,7 @@ public class HexInfo : MonoBehaviour {
         Pisces,
         Null
     }
+
     public HexType CurrentHexType;
 
     //Bool to set to true if the object has been checked 
@@ -140,6 +141,10 @@ public class HexInfo : MonoBehaviour {
 
     public void OnMouseDown()
     {
+        if (GMScript.DisableHexes)
+        {
+            return;
+        }
         //First check if editmode is on
         if (GMScript.EditMode)
         {
