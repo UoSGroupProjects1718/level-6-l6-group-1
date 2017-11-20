@@ -22,7 +22,7 @@ public class GameMaster : MonoBehaviour {
     public int CurrentlySelectedType;
     public GameObject CurrentlySelected;
     public Text MoveCounter;
-    public bool EditMode = false;
+    public bool EditMode = true;
 
         // Use this for initialization
     void Start()
@@ -57,15 +57,7 @@ public class GameMaster : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        //First check if the mouse-click was a right click
-        if (EditMode)
-        {
-            GMScript.CurrentlySelected = this.gameObject;
-            TileSetter.transform.position = this.transform.position;
-            Debug.Log("Should Have Moved");
-            //Return because we don't want the rest of this script executing
-            return;
-        }
+
     }
 
     //Checks if the game has been won yet

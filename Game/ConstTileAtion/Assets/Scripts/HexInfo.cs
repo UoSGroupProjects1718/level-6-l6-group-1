@@ -56,7 +56,7 @@ public class HexInfo : MonoBehaviour {
 
         if (Layer <=GMScript.LayersBeingUsed)
         {
-            SetHexSprite();
+            //SetHexSprite();
 
             //Find neighbors and add them to the neighbor list
             foreach (Transform Holder in GMaster.transform)
@@ -140,10 +140,23 @@ public class HexInfo : MonoBehaviour {
 
     public void OnMouseDown()
     {
+        //First check if editmode is on
+        if (GMScript.EditMode)
+        {
+            //Set the clicked-on tile to selected (so we know which one we will be adding the symbol to)
+            GMScript.CurrentlySelected = this.gameObject;
 
+            //Get the dropdown value from the dropdown menu in the editor
+            int DropdownValue = TileSetter.GetComponent<Dropdown>().value;
 
+            //Set the dropdown value to be the hex type
+            CurrentHexType = (HexType)DropdownValue;
 
+            //Then call SpriteChanger to set the sprite to the correct type
+            SpriteChanger();
 
+            return;
+        }
         //If nothing has been selected yet
         if (GMScript.Clicked == false && !GMScript.EditMode)
         {
