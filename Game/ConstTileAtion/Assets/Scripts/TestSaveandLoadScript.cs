@@ -43,7 +43,7 @@ public class LevelData
 {
     public string LevelName;
     public LevelType Leveltype;
-    public int Level;
+    public int LevelNumber;
 
 }
 

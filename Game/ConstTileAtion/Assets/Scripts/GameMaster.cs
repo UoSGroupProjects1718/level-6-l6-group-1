@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour {
@@ -9,7 +6,7 @@ public class GameMaster : MonoBehaviour {
     public GameObject HexPrefab;
 
     //Storage for the Hexbackground GameObjects
-    public GameObject HexBackground_Center, HexBackground_1, HexBackground_2, HexBackground_3;
+    public GameObject [] BackgroundHexs = new GameObject[4];
 
     //Gameobject which is the parent of all that rings hexes
     public GameObject RingHolder0, RingHolder1, RingHolder2, RingHolder3;
@@ -24,34 +21,68 @@ public class GameMaster : MonoBehaviour {
     public Text MoveCounter;
     public bool EditMode = true;
     public bool DisableHexes = false;
+    public Slider LayerSlider;
 
         // Use this for initialization
     void Start()
     {
+        //Call this on start to set the number of hex layers
         LayerSetter();
+
+        //If editmode is true, set a listener on the slider to make it dynamically 
+        //adjust the layers shown
+        if (EditMode)
+        {
+            //Sets a listener and a function to execute
+            LayerSlider.onValueChanged.AddListener(delegate { LayersBeingUsed = (int)LayerSlider.value; LayerSetter(); });
+        }
+
+
+
     }
 
+    //Enables the layers that the game is currently using
     public void LayerSetter()
     {
-        //Set the correct layer of the background to active
-        if (LayersBeingUsed >= 0)
+        //Goes through the array of background peices and 
+        //enables them if they are bing used, and disables them if they are not.
+        for (int i = 0; i < BackgroundHexs.Length; i++)
         {
-            HexBackground_Center.SetActive(true);
+            if (LayersBeingUsed >= i)
+                BackgroundHexs[i].SetActive(true);
+            else
+                BackgroundHexs[i].SetActive(false);
+        }
 
+        //Goes through each of the hexes that are in the rings and enables/disables
+        //them if they aren't in use
+        foreach (Transform Hex in RingHolder3.transform)
+        {
+            if (LayersBeingUsed >= 3)
+                Hex.gameObject.SetActive(true);
+            else
+                Hex.gameObject.SetActive(false);
+        }
+        foreach (Transform Hex in RingHolder2.transform)
+        {
+            if (LayersBeingUsed >= 2)
+                Hex.gameObject.SetActive(true);
+            else
+                Hex.gameObject.SetActive(false);
+        }
+            foreach (Transform Hex in RingHolder1.transform)
+        {
             if (LayersBeingUsed >= 1)
-            {
-                HexBackground_1.SetActive(true);
-
-                if (LayersBeingUsed >= 2)
-                {
-                    HexBackground_2.SetActive(true);
-
-                    if (LayersBeingUsed >= 3)
-                    {
-                        HexBackground_3.SetActive(true);
-                    }
-                }
-            }
+                Hex.gameObject.SetActive(true);
+            else
+                Hex.gameObject.SetActive(false);
+        }
+        foreach (Transform Hex in RingHolder0.transform)
+        {
+            if (LayersBeingUsed >= 0)
+                Hex.gameObject.SetActive(true);
+            else
+                Hex.gameObject.SetActive(false);
         }
     }
 
@@ -59,38 +90,6 @@ public class GameMaster : MonoBehaviour {
     void Update ()
     {
 
-    }
-
-    //Checks if the game has been won yet
-    bool WinCheck()
-    {
-        foreach (Transform Child in TileHolder.transform)
-        {
-            //Ignore if the child is Null
-            if (Child.GetComponent<HexInfo>().CurrentHexType == 0)
-                break;
-            //Else, call the TileWinCheck function with the X/Y of the gameobject
-            else
-            {
-                TileWinCheck(Child.GetComponent<HexInfo>().X, Child.GetComponent<HexInfo>().Y);
-            }
-        }
-        return false;
-    }
-
-    bool TileWinCheck(int TileX, int TileY)
-    {
-        foreach (Transform Holder in this.transform)
-        {
-            foreach (Transform Hex in Holder.transform)
-            {
-                if (Hex.GetComponent<HexInfo>().X == TileX && Hex.GetComponent<HexInfo>().Y == TileY)
-                {
-
-                }
-            }
-        }
-                return false;
     }
     
     public void CheckWin()
