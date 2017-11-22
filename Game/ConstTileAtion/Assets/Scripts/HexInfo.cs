@@ -141,6 +141,7 @@ public class HexInfo : MonoBehaviour {
 
     public void OnMouseDown()
     {
+        //Skip the entire function if hexes are disabled
         if (GMScript.DisableHexes)
         {
             return;
@@ -151,11 +152,8 @@ public class HexInfo : MonoBehaviour {
             //Set the clicked-on tile to selected (so we know which one we will be adding the symbol to)
             GMScript.CurrentlySelected = this.gameObject;
 
-            //Get the dropdown value from the dropdown menu in the editor
-            int DropdownValue = TileSetter.GetComponent<Dropdown>().value;
-
             //Set the dropdown value to be the hex type
-            CurrentHexType = (HexType)DropdownValue;
+            CurrentHexType = (HexType)GMScript.CurrentlySelectedType;
 
             //Then call SpriteChanger to set the sprite to the correct type
             SpriteChanger();

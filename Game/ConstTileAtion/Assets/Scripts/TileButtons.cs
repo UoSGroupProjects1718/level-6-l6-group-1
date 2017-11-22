@@ -9,6 +9,6 @@ public class TileButtons : MonoBehaviour
 
     public void OnMouseDown()
     {
-        GMScript.
+        GMScript.GetComponent<GameMaster>().CurrentlySelectedType = (int)ButtonType;
     }
 }
