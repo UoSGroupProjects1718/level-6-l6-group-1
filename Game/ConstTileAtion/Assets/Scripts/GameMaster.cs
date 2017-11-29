@@ -36,9 +36,6 @@ public class GameMaster : MonoBehaviour {
             //Sets a listener and a function to execute
             LayerSlider.onValueChanged.AddListener(delegate { LayersBeingUsed = (int)LayerSlider.value; LayerSetter(); });
         }
-
-
-
     }
 
     //Enables the layers that the game is currently using

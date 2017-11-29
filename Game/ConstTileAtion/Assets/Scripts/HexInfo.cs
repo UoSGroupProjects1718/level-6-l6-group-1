@@ -55,6 +55,14 @@ public class HexInfo : MonoBehaviour {
         GMScript = GMaster.GetComponent<GameMaster>();
         SprRenderer = GetComponent<SpriteRenderer>();
 
+        //Find the gameobject that indicates this level was started from the title screen
+        GameObject Persistant = GameObject.Find("PersistantObject");
+        if(Persistant != null)
+        {
+            GMScript.EditMode = true;
+        }
+
+
         if (Layer <=GMScript.LayersBeingUsed)
         {
             //SetHexSprite();
@@ -81,30 +89,6 @@ public class HexInfo : MonoBehaviour {
     //Set the sprites of the hexes, this will be run at the start of the game and every time it resets
     public void SetHexSprite()
     {
-        //Randomly assign a star sign to a tile, only 1/4 of the tiles will have signs
-        int random = Random.Range(0, 4);
-
-        if (random == 0)
-        {
-            //Find the gameobject that indicates this level was started from the title screen
-            GameObject Persistant = GameObject.Find("PersistantObject");
-
-            if (Persistant != null)
-            {
-                CurrentHexType = (HexType)Persistant.GetComponent<PersistantInfo>().LevelType;//(HexType)Random.Range(0, HexType.GetNames(typeof(HexType)).Length);
-                //Add this to the number of non-null active tiles, to work out how many there need to be to win.
-                GMScript.NumToWin++;
-            }
-            //And if it wasn't, then start editor mode
-            else
-            {
-                GMScript.EditMode = true;
-            }
-        }
-        else
-        {
-            CurrentHexType = HexType.Null;
-        }
         SpriteChanger();
     }
 

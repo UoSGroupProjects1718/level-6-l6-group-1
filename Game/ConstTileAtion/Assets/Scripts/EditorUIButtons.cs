@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,11 @@ using UnityEngine;
 public class EditorUIButtons : MonoBehaviour
 {
     public Canvas SaveCanvas;
+    public GameObject LoadObject;
     public Canvas LoadCanvas;
     public GameObject GMaster;
     public GameMaster GMScript;
+    public GameObject LoadUI;
 
     private void Start()
     {
@@ -25,6 +28,10 @@ public class EditorUIButtons : MonoBehaviour
         //Flick the SaveCanvas to whatever it wasn't before
         SaveCanvas.gameObject.SetActive(!SaveCanvas.gameObject.activeSelf);
         GMScript.DisableHexes = !GMScript.DisableHexes;
+        if (LoadCanvas.gameObject.activeSelf)
+        {
+            LoadCanvas.gameObject.SetActive(false);
+        }
     }
 
     public void LoadCanvasToggle()
@@ -32,5 +39,25 @@ public class EditorUIButtons : MonoBehaviour
         //Flick the SaveCanvas to whatever it wasn't before
         LoadCanvas.gameObject.SetActive(!LoadCanvas.gameObject.activeSelf);
         GMScript.DisableHexes = !GMScript.DisableHexes;
+        //Set the Save canvas to 
+        if (SaveCanvas.gameObject.activeSelf)
+        {
+            SaveCanvas.gameObject.SetActive(false);
+        }
+
+        PopulateLoadCanvas();
+
+    }
+
+    //Add gameobjects to the load canvas
+    private void PopulateLoadCanvas()
+    {
+        //find each instance of a level stored in 
+        foreach (var item in GMaster.GetComponent<TestSaveandLoadScript>().AllLevels.Levels)
+        {
+            GameObject UIElement = Instantiate(LoadUI, LoadObject.transform);
+            UIElement.transform.SetParent(LoadObject.transform, false);
+            UIElement.transform.localScale = LoadObject.transform.localScale;
+        }
     }
 }
