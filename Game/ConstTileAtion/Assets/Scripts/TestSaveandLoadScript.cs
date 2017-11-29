@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using System.IO;
 
 public class TestSaveandLoadScript : MonoBehaviour
 {
 
 
 
-    public bool SaveLevel(string Name)
+    public bool SaveLevel()
     {
+        JSONLevel LVLData = new JSONLevel;
+        LVLData.
 
         return true;
     }
@@ -46,8 +50,8 @@ public class LevelData
     public int LevelNumber;
 
 }
-
-public class JSONLevels
+[System.Serializable]
+public class JSONLevel
 {
         Dictionary<string, LevelData> Levels = new Dictionary<string, LevelData>();
 }

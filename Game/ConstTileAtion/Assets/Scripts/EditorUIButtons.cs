@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//
+//http://benhumphreys.co.uk/blog/2015/09/06/how-to-make-a-scrollable-list-in-unitys-new-gui/
+
 public class EditorUIButtons : MonoBehaviour
 {
     public Canvas SaveCanvas;
