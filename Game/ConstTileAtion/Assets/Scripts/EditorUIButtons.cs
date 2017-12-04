@@ -77,13 +77,13 @@ public class EditorUIButtons : MonoBehaviour
             UIElement.transform.SetParent(LoadObject.transform, false);
             //Set the instantiated UI object to be the correct scale
             UIElement.transform.localScale = LoadObject.transform.localScale;
-            //Get the text component of child number 5 (IDNumber)
-            Text IDNo = UIElement.transform.GetChild(5).GetComponent<Text>();
-            //Set the text element
-            IDNo.text = item.LevelNumber.ToString();
-            //Get the text component of child number 3 (NameText)
-            Text NameNo = UIElement.transform.GetChild(3).GetComponent<Text>();
-            NameNo.text = item.LevelName;
+
+            //Get the LoadInstantiatedUIData script component
+            LoadInstantiatedUIData NewUIObject = UIElement.GetComponent<LoadInstantiatedUIData>();
+            //Set the data of the script from the JSON file
+            NewUIObject.LvlID = item.LevelNumber;
+            NewUIObject.LvlName = item.LevelName;
+            NewUIObject.LvlType = item.Leveltype.ToString();
         }
     }
 
