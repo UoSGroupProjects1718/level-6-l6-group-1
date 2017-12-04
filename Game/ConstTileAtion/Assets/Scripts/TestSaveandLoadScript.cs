@@ -15,12 +15,15 @@ public class TestSaveandLoadScript : MonoBehaviour
     public GameMaster GMaster;
     public InputField InputName;
     public Dropdown InputType;
+    public Text SaveErrorText;
+
+
 
     //On start, load the level-data that is currently saved
     void Start()
     {
         //Create a string to the JSON text file
-        JSONFilePath = Path.Combine(Application.persistentDataPath, "Levels.txt");
+        JSONFilePath = Path.Combine(Application.dataPath, "Levels.txt");
         //At the start, create a version of the JSON file in memory and populate it
         LoadLevelJSONFile();
     }
@@ -33,7 +36,7 @@ public class TestSaveandLoadScript : MonoBehaviour
 
     public void SaveLevel()
     {
-        //Ceate a new level and add the correcte data to it
+        //Ceate a new level and add the correct data to it
         LevelData LVLData = new LevelData();
         LVLData.LevelName = InputName.text;
         LVLData.Leveltype = (LevelType)InputType.value;
@@ -54,6 +57,8 @@ public class TestSaveandLoadScript : MonoBehaviour
         string json = JsonUtility.ToJson(AllLevels, true);
         //And then write it to an actual textfile
         File.WriteAllText(JSONFilePath, json);
+
+        SaveErrorText.text = "Level Saved!";
         Debug.Log("Created JSON text file at" + JSONFilePath);
     }
 
@@ -89,6 +94,7 @@ public class TestSaveandLoadScript : MonoBehaviour
 
         return true;
     }
+
 
     private LevelData FindLevel(int LevelToLoadID)
     {
