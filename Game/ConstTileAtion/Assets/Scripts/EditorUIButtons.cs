@@ -64,9 +64,9 @@ public class EditorUIButtons : MonoBehaviour
     private void PopulateLoadCanvas()
     {
         //Delete all objects that are already a part of this canvas
-        foreach (GameObject item in LoadObject.transform)
+        foreach (Transform item in LoadObject.transform)
         {
-            Destroy(item);
+            Destroy(item.gameObject);
         }
         //find each instance of a level stored and add a UI gameobject for that
         foreach (var item in GMaster.GetComponent<TestSaveandLoadScript>().AllLevels.Levels)

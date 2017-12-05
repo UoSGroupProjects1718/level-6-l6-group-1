@@ -1,24 +1,24 @@
 {
     "Levels": [
         {
-            "LevelName": "test",
+            "LevelName": "Test2",
             "Leveltype": 0,
-            "LevelNumber": 0,
+            "LevelNumber": 1,
             "Hexes": [
                 {
                     "X": 0,
                     "Y": 0,
-                    "HexID": 7
+                    "HexID": 12
                 },
                 {
                     "X": 0,
                     "Y": -1,
-                    "HexID": 7
+                    "HexID": 12
                 },
                 {
                     "X": 0,
                     "Y": 1,
-                    "HexID": 7
+                    "HexID": 12
                 },
                 {
                     "X": 1,
@@ -38,22 +38,22 @@
                 {
                     "X": -1,
                     "Y": 0,
-                    "HexID": 12
+                    "HexID": 7
                 },
                 {
                     "X": -1,
                     "Y": -1,
-                    "HexID": 12
+                    "HexID": 7
                 },
                 {
                     "X": 0,
                     "Y": -2,
-                    "HexID": 7
+                    "HexID": 12
                 },
                 {
                     "X": 0,
                     "Y": 2,
-                    "HexID": 7
+                    "HexID": 12
                 },
                 {
                     "X": 1,
@@ -108,12 +108,12 @@
                 {
                     "X": 0,
                     "Y": -3,
-                    "HexID": 7
+                    "HexID": 12
                 },
                 {
                     "X": 0,
                     "Y": 3,
-                    "HexID": 7
+                    "HexID": 12
                 },
                 {
                     "X": 1,
@@ -128,7 +128,7 @@
                 {
                     "X": -1,
                     "Y": -2,
-                    "HexID": 12
+                    "HexID": 7
                 },
                 {
                     "X": -1,

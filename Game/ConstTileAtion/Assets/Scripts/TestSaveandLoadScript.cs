@@ -36,17 +36,36 @@ public class TestSaveandLoadScript : MonoBehaviour
 
     public void SaveLevel()
     {
+        //Search all levels to find out if it is identical to another level
+        foreach (var item in AllLevels.Levels)
+        {
+            if (true)
+            {
+
+            }
+        }
+
         //Ceate a new level and add the correct data to it
         LevelData LVLData = new LevelData();
         LVLData.LevelName = InputName.text;
         LVLData.Leveltype = (LevelType)InputType.value;
         LVLData.LevelNumber = FindClearID();
+        LVLData.HexLayers = GMaster.LayersBeingUsed;
+
 
         //run the function to add the hex-data to the level
         SaveHexes(LVLData);
         //Add the Level to the list inside the JSON object
         AllLevels.Levels.Add(LVLData);
 
+        JSONEncode();
+
+        SaveErrorText.text = "Level Saved!";
+        Debug.Log("Created JSON text file at" + JSONFilePath);
+    }
+
+    public void JSONEncode()
+    {
         //Check if the Save file exists, and if it does then delete it
         if (File.Exists(JSONFilePath))
         {
@@ -57,9 +76,6 @@ public class TestSaveandLoadScript : MonoBehaviour
         string json = JsonUtility.ToJson(AllLevels, true);
         //And then write it to an actual textfile
         File.WriteAllText(JSONFilePath, json);
-
-        SaveErrorText.text = "Level Saved!";
-        Debug.Log("Created JSON text file at" + JSONFilePath);
     }
 
     //finds an ID that is not being used, in case one has been deleted in the past
@@ -166,6 +182,7 @@ public class LevelData
     public string LevelName;
     public LevelType Leveltype;
     public int LevelNumber;
+    public int HexLayers;
     //List to hold all hex data for this level
     public List<HexData> Hexes = new List<HexData>();
 }

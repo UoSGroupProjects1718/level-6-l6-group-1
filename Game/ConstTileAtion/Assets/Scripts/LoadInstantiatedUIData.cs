@@ -31,12 +31,6 @@ public class LoadInstantiatedUIData : MonoBehaviour {
         Text LevelNo = this.transform.GetChild(7).GetComponent<Text>();
         //Set the text element
         LevelNo.text = LvlType;
-
-            //Set the button controls
-        //Set the load button
-
-        //set the delete button
-
     }
 	
 	// Update is called once per frame
@@ -45,7 +39,7 @@ public class LoadInstantiatedUIData : MonoBehaviour {
 	}
 
     //Function that is called when the "Delete" button is clicked on the overlay
-    void Delete()
+    public void Delete()
     {
         //Search through all the levels
         foreach (var item in SaveAndLoadScript.AllLevels.Levels)
@@ -53,15 +47,23 @@ public class LoadInstantiatedUIData : MonoBehaviour {
             //For a level with the same level ID as this
             if (item.LevelNumber == LvlID)
             {
-                //And delete it
-
+                //And delete it from the array
+                SaveAndLoadScript.AllLevels.Levels.Remove(item);
+                //Then re-encode the JSON file
+                SaveAndLoadScript.JSONEncode();
             }
         }
     }
     //Function that is called when the "Load" button is clicked on the overlay
-    void Load()
+    public void Load()
     {
-
+        foreach (var item in SaveAndLoadScript.AllLevels.Levels)
+        {
+            if (item.LevelNumber == LvlID)
+            {
+                item.
+            }
+        }
     }
 
 }
