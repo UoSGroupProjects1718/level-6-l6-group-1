@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,19 +52,59 @@ public class LoadInstantiatedUIData : MonoBehaviour {
                 SaveAndLoadScript.AllLevels.Levels.Remove(item);
                 //Then re-encode the JSON file
                 SaveAndLoadScript.JSONEncode();
+                break;
             }
         }
     }
     //Function that is called when the "Load" button is clicked on the overlay
     public void Load()
     {
+        ClearLevel();
+
+            //First set all of the Hexes
+        //Find the correct level
         foreach (var item in SaveAndLoadScript.AllLevels.Levels)
         {
             if (item.LevelNumber == LvlID)
             {
-                item.
+                //Search through each hex in the stored array
+                foreach (var JSONHex in item.Hexes)
+                {
+                    //Skip comparing it if the type is Null as we don't need to find which one it corresponds to
+                    if (JSONHex.HexID == HexInfo.HexType.Null)
+                        continue;
+                    //And compare it to each hex in the scene
+                    foreach (Transform Holder in GMaster.transform)
+                    {
+                        foreach (Transform Child in Holder.transform)
+                        {
+                            //Compare its X and Y
+                            if (JSONHex.X == Child.GetComponent<HexInfo>().X &&
+                                JSONHex.Y == Child.GetComponent<HexInfo>().Y)
+                            {
+                                //And if this is the correct Hex, assign it 
+                                Child.GetComponent<HexInfo>().CurrentHexType = JSONHex.HexID;
+                                Child.GetComponent<HexInfo>().SetHexSprite();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //Then set all of the 
+    }
+
+    //Sets all the hexes in the scene to Null
+    private void ClearLevel()
+    {
+        foreach (Transform Holder in GMaster.transform)
+        {
+            foreach (Transform Child in Holder.transform)
+            {
+                HexInfo Hex = Child.GetComponent<HexInfo>();
+                Hex.CurrentHexType = HexInfo.HexType.Null;
+                Hex.SetHexSprite();
             }
         }
     }
-
 }

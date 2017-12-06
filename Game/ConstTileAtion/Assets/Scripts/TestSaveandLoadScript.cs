@@ -48,7 +48,7 @@ public class TestSaveandLoadScript : MonoBehaviour
         //Ceate a new level and add the correct data to it
         LevelData LVLData = new LevelData();
         LVLData.LevelName = InputName.text;
-        LVLData.Leveltype = (LevelType)InputType.value;
+        LVLData.Leveltype = (HexInfo.HexType)InputType.value;
         LVLData.LevelNumber = FindClearID();
         LVLData.HexLayers = GMaster.LayersBeingUsed;
 
@@ -149,23 +149,6 @@ public class TestSaveandLoadScript : MonoBehaviour
     }    
 }
 
-public enum LevelType
-{
-    Aries,
-    Taurus,
-    Gemini,
-    Cancer,
-    Leo,
-    Virgo,
-    Libra,
-    Scorpio,
-    Sagittarius,
-    Capricorn,
-    Aquarius,
-    Pisces,
-    Null
-}
-
 
 //Class to store the data of all hexes
 [System.Serializable]
@@ -180,7 +163,7 @@ public class HexData
 public class LevelData
 {
     public string LevelName;
-    public LevelType Leveltype;
+    public HexInfo.HexType Leveltype;
     public int LevelNumber;
     public int HexLayers;
     //List to hold all hex data for this level
