@@ -55,14 +55,6 @@ public class HexInfo : MonoBehaviour {
         GMScript = GMaster.GetComponent<GameMaster>();
         SprRenderer = GetComponent<SpriteRenderer>();
 
-        //Find the gameobject that indicates this level was started from the title screen
-        GameObject Persistant = GameObject.Find("PersistantObject");
-        if(Persistant != null)
-        {
-            GMScript.EditMode = true;
-        }
-
-
         if (Layer <=GMScript.LayersBeingUsed)
         {
             //SetHexSprite();

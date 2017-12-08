@@ -26,6 +26,18 @@ public class GameMaster : MonoBehaviour {
         // Use this for initialization
     void Start()
     {
+
+        //Find the gameobject that indicates this level was started from the title screen
+        GameObject Persistant = GameObject.Find("PersistantObject");
+        if (Persistant != null)
+        {
+            EditMode = false;
+            //Call the loadlevel function with the LevelID supplied by the persistant object
+            this.gameObject.GetComponent<TestSaveandLoadScript>().LoadLevel(Persistant.GetComponent<PersistantInfo>().LevelType);
+
+            
+        }
+
         //Call this on start to set the number of hex layers
         LayerSetter();
 

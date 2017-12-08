@@ -23,6 +23,12 @@ public class EditorUIButtons : MonoBehaviour
     private void Start()
     {
         GMScript = GMaster.GetComponent<GameMaster>();
+        //Find out if we should be in editor mode
+        if (!GMScript.EditMode)
+        {
+            this.gameObject.SetActive(false);
+        }
+
         SaveCanvas.gameObject.SetActive(false); //Sets the canvas to false at the start of the play
         LoadCanvas.gameObject.SetActive(false);
     }

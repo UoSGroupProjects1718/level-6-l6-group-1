@@ -20,7 +20,7 @@ public class TestSaveandLoadScript : MonoBehaviour
 
 
     //On start, load the level-data that is currently saved
-    void Start()
+    void Awake()
     {
         //Create a string to the JSON text file
         JSONFilePath = Path.Combine(Application.dataPath, "Levels.txt");
@@ -107,7 +107,15 @@ public class TestSaveandLoadScript : MonoBehaviour
         if ( LoadedLevel == null)
             return false;
 
-
+        //Load all of the Hexes
+        foreach (HexData Hex in LoadedLevel.Hexes)
+        {
+            HexFinder(Hex);
+        }
+        //Set the number of Hex Layers that are going to be used
+        GMaster.GetComponent<GameMaster>().LayersBeingUsed = LoadedLevel.HexLayers;
+        //Call LayerSetter to put those changes into effect
+        GMaster.GetComponent<GameMaster>().LayerSetter();
         return true;
     }
 
@@ -124,6 +132,24 @@ public class TestSaveandLoadScript : MonoBehaviour
         }
         Debug.Log("Level ID does not exist");
         return null;
+    }
+
+    //Find a hex that coresponds to the one stored in JSON
+    private void HexFinder(HexData Hex)
+    {
+        foreach (Transform Ring in GMaster.transform)
+        {
+            foreach (Transform HexMarker in Ring.transform)
+            {
+                if (HexMarker.GetComponent<HexInfo>().X == Hex.X &&
+                    HexMarker.GetComponent<HexInfo>().Y == Hex.Y)
+                {
+                    HexInfo HexScript = HexMarker.GetComponent<HexInfo>();
+                    HexScript.CurrentHexType = Hex.HexID;
+                    HexScript.SetHexSprite();
+                }
+            }
+        }
     }
 
     public void SaveHexes(LevelData Level)
