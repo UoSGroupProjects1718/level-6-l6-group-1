@@ -1,0 +1,61 @@
+Initialize engine version: 5.5.4p4 (e92bef0ab5a4)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   23.21.13.8813
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.102 seconds
+Platform assembly: C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Administrator\Documents\GitHub\level-6-l6-group-1\Game\ConstTileAtionBuild_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3200x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.887370 ms
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.079719 ms
+NullReferenceException: Object reference not set to an instance of an object
+  at HexInfo.SpriteChanger () [0x00000] in <filename unknown>:0 
+  at HexInfo.SetHexSprite () [0x00000] in <filename unknown>:0 
+  at TestSaveandLoadScript.HexFinder (.HexData Hex) [0x00000] in <filename unknown>:0 
+  at TestSaveandLoadScript.LoadLevel (Int32 LevelToLoadID) [0x00000] in <filename unknown>:0 
+  at GameMaster.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 990.
+Total: 1.209064 ms (FindLiveObjects: 0.033137 ms CreateObjectMapping: 0.023753 ms MarkObjects: 1.143376 ms  DeleteObjects: 0.008797 ms)
+
+Winner!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Switched: 0,0 With -1,0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Winner!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Switched: -1,0 With -2,0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 1eb0 -> priority: 1 
+  Thread -> id: 1678 -> priority: 1 
