@@ -11,7 +11,6 @@ public class LoadInstantiatedUIData : MonoBehaviour {
     public string LvlName;
     public int LvlID;
     public string LvlType;
-    public int MaximumMoves;
 
 	// Use this for initialization
 	void Start ()
@@ -33,10 +32,6 @@ public class LoadInstantiatedUIData : MonoBehaviour {
         Text LevelNo = this.transform.GetChild(7).GetComponent<Text>();
         //Set the text element
         LevelNo.text = LvlType;
-        //Get the text component of child number 9 (MaxMoves)
-        Text MaxMoves = this.transform.GetChild(9).GetComponent<Text>();
-        //Set the text element
-        MaxMoves.text = MaximumMoves.ToString();
     }
 	
 	// Update is called once per frame
