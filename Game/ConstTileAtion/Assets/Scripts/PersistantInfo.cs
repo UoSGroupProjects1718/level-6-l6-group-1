@@ -6,7 +6,9 @@ public class PersistantInfo : MonoBehaviour
 {
     private void Awake()
     {
-    DontDestroyOnLoad(this);
+        //Sets the orientation to Portrait
+        Screen.orientation = ScreenOrientation.Portrait;
+        DontDestroyOnLoad(this);
     }
     public int LevelType;
 }
