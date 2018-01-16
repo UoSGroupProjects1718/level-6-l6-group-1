@@ -20,9 +20,7 @@ public class TempTitleTransition : MonoBehaviour
         //Clear the options currently in the dropdown menu
         LevelSelect.options.Clear();
 
-        JSONFilePath = Path.Combine(Application.dataPath, "Levels.txt");
-        string JsonString = File.ReadAllText(JSONFilePath);
-        JsonUtility.FromJsonOverwrite(JsonString, AllLevels);
+        JsonUtility.FromJsonOverwrite(ReadJSONText(), AllLevels);
 
         List<string> LevelNames = new List<string>();
 
@@ -48,6 +46,13 @@ public class TempTitleTransition : MonoBehaviour
                 return;
             }
         }
+    }
+
+    private string ReadJSONText()
+    {
+
+        TextAsset JSONText = Resources.Load("Levels") as TextAsset;
+        return JSONText.ToString();
     }
 
     public void StartGame()

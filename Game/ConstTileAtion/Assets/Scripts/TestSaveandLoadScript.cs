@@ -23,31 +23,41 @@ public class TestSaveandLoadScript : MonoBehaviour
     //On start, load the level-data that is currently saved
     void Awake()
     {
-        //Create a string to the JSON text file
-        JSONFilePath = Path.Combine(Application.dataPath, "Levels.txt");
-        //At the start, create a version of the JSON file in memory and populate it
-        LoadLevelJSONFile();
+        //If its the editor, load it in such a way that it can be edited at runtime
+        if (Application.isEditor)
+        {
+            //At the start, create a version of the JSON file in memory and populate it
+            JSONFilePath = Path.Combine(Application.dataPath, "Resources\\Levels.txt");
+            string JsonString = File.ReadAllText(JSONFilePath);
+            JsonUtility.FromJsonOverwrite(JsonString, AllLevels);
+        }
+        //Otherwise, just read the data into memory
+        else
+        {
+            ReadJSONText();
+        }
     }
-
-    private void LoadLevelJSONFile()
+    //Find and create the correct path to the JSON file holding the levels
+    private void ReadJSONText()
     {
-        string JsonString = File.ReadAllText(JSONFilePath);
-        JsonUtility.FromJsonOverwrite(JsonString, AllLevels);
+        TextAsset JSONText = Resources.Load("Levels") as TextAsset;
+        JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
     }
 
     public void SaveLevel()
     {
+        //Ceate a new level and add the correct data to it
+        LevelData LVLData = new LevelData();
         //Search all levels to find out if it is identical to another level
         foreach (var item in AllLevels.Levels)
         {
-            if (true)
+            if (LVLData.LevelName == item.LevelName)
             {
-
+                Debug.Log("Name Already taken");
+                return;
             }
         }
 
-        //Ceate a new level and add the correct data to it
-        LevelData LVLData = new LevelData();
         LVLData.LevelName = InputName.text;
         LVLData.Leveltype = (HexInfo.HexType)InputType.value;
         LVLData.LevelNumber = FindClearID();
@@ -193,6 +203,8 @@ public class LevelData
     public HexInfo.HexType Leveltype;
     public int LevelNumber;
     public int HexLayers;
+    public int MaximumMoves;
+    public int Background;
     //List to hold all hex data for this level
     public List<HexData> Hexes = new List<HexData>();
 }
