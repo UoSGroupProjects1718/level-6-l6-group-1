@@ -34,8 +34,6 @@ public class GameMaster : MonoBehaviour {
             EditMode = false;
             //Call the loadlevel function with the LevelID supplied by the persistant object
             this.gameObject.GetComponent<TestSaveandLoadScript>().LoadLevel(Persistant.GetComponent<PersistantInfo>().LevelType);
-
-            
         }
 
         //Call this on start to set the number of hex layers

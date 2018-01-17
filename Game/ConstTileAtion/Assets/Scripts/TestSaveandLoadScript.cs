@@ -16,6 +16,7 @@ public class TestSaveandLoadScript : MonoBehaviour
     public GameMaster GMaster;
     public InputField InputName;
     public Dropdown InputType;
+    public Dropdown BackgroundDropdown;
     public Text SaveErrorText;
 
 
@@ -58,10 +59,12 @@ public class TestSaveandLoadScript : MonoBehaviour
             }
         }
 
+        //Set the various variables in the level class based off data given to it
         LVLData.LevelName = InputName.text;
         LVLData.Leveltype = (HexInfo.HexType)InputType.value;
         LVLData.LevelNumber = FindClearID();
         LVLData.HexLayers = GMaster.LayersBeingUsed;
+        LVLData.Background = BackgroundDropdown.value;
 
 
         //run the function to add the hex-data to the level
@@ -72,7 +75,6 @@ public class TestSaveandLoadScript : MonoBehaviour
         JSONEncode();
 
         SaveErrorText.text = "Level Saved!";
-        Debug.Log("Created JSON text file at" + JSONFilePath);
     }
 
     public void JSONEncode()
@@ -127,9 +129,19 @@ public class TestSaveandLoadScript : MonoBehaviour
         GMaster.GetComponent<GameMaster>().LayersBeingUsed = LoadedLevel.HexLayers;
         //Call LayerSetter to put those changes into effect
         GMaster.GetComponent<GameMaster>().LayerSetter();
+
+        //Set the current background
+        SetBackground(LoadedLevel.Background);
+
         return true;
     }
 
+    private void SetBackground(int BackgroundID)
+    {
+        GameObject BCObject = GameObject.Find("BackgroundController");
+        BackgroundController BCScript = BCObject.GetComponent<BackgroundController>();
+        BCScript.ChangeBackground(BackgroundID);
+    }
 
     private LevelData FindLevel(int LevelToLoadID)
     {

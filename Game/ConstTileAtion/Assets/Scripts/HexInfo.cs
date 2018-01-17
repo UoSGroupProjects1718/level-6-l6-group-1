@@ -84,12 +84,6 @@ public class HexInfo : MonoBehaviour {
         SpriteChanger();
     }
 
-    // Update is called once per frame
-    void Update ()
-    {
-		
-	}
-
     //Checks if two tiles are neighbors within a certain range
     public bool IsNeighbor(int CurrentX, int CurrentY, int TargetX, int TargetY, int Offset)
     {
