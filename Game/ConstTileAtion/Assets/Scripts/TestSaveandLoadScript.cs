@@ -14,9 +14,8 @@ public class TestSaveandLoadScript : MonoBehaviour
     private string JSONFilePath;
 
     public GameMaster GMaster;
-    public InputField InputName;
-    public Dropdown InputType;
-    public Dropdown BackgroundDropdown;
+    public InputField InputName, MaxMovesInput, StardustRewards;
+    public Dropdown InputType, BackgroundDropdown;
     public Text SaveErrorText;
 
 
@@ -64,7 +63,9 @@ public class TestSaveandLoadScript : MonoBehaviour
         LVLData.Leveltype = (HexInfo.HexType)InputType.value;
         LVLData.LevelNumber = FindClearID();
         LVLData.HexLayers = GMaster.LayersBeingUsed;
+        LVLData.MaximumMoves = Convert.ToInt32(MaxMovesInput.text);
         LVLData.Background = BackgroundDropdown.value;
+        LVLData.StardustRewardForLevel = Convert.ToInt32(StardustRewards.text);
 
 
         //run the function to add the hex-data to the level
@@ -189,8 +190,15 @@ public class TestSaveandLoadScript : MonoBehaviour
                 //Put the data into the object
                 Hex.X = HexInfoScript.X;
                 Hex.Y = HexInfoScript.Y;
-                Hex.HexID = HexInfoScript.CurrentHexType;
-
+                //Only save the hex if it is going to be seen, prevents impossible levels
+                if (HexInfoScript.Layer <= Level.HexLayers)
+                {
+                    Hex.HexID = HexInfoScript.CurrentHexType;
+                }
+                else
+                {
+                    Hex.HexID = HexInfo.HexType.Null;
+                }
                 //Add the hex to the list
                 Level.Hexes.Add(Hex);
             }
@@ -217,6 +225,7 @@ public class LevelData
     public int HexLayers;
     public int MaximumMoves;
     public int Background;
+    public int StardustRewardForLevel;
     //List to hold all hex data for this level
     public List<HexData> Hexes = new List<HexData>();
 }
