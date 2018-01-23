@@ -131,6 +131,10 @@ public class TestSaveandLoadScript : MonoBehaviour
         //Call LayerSetter to put those changes into effect
         GMaster.GetComponent<GameMaster>().LayerSetter();
 
+        //Set the MovesLeft variable in the gamemaster
+        GMaster.MovesLeft = LoadedLevel.MaximumMoves;
+        GMaster.UpdateMoveCounter(0);
+
         //Set the current background
         SetBackground(LoadedLevel.Background);
 
@@ -171,6 +175,12 @@ public class TestSaveandLoadScript : MonoBehaviour
                     HexInfo HexScript = HexMarker.GetComponent<HexInfo>();
                     HexScript.CurrentHexType = Hex.HexID;
                     HexScript.SetHexSprite();
+
+                    //If the hex loaded in is not a null hex, increase the number needed to win
+                    if (Hex.HexID != HexInfo.HexType.Null)
+                    {
+                        GMaster.NumToWin++;
+                    }
                 }
             }
         }

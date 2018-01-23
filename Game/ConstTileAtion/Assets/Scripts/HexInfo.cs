@@ -57,8 +57,6 @@ public class HexInfo : MonoBehaviour {
 
         if (Layer <=GMScript.LayersBeingUsed)
         {
-            //SetHexSprite();
-
             //Find neighbors and add them to the neighbor list
             foreach (Transform Holder in GMaster.transform)
             {
@@ -166,6 +164,7 @@ public class HexInfo : MonoBehaviour {
                     if (IsNeighbor(X, Y, HexScript.X, HexScript.Y, 1))
                     {
                         Move(HexScript);
+                        GMScript.UpdateMoveCounter(1);
                         break;
                     }
                     CantMove(HexScript);
@@ -210,6 +209,7 @@ public class HexInfo : MonoBehaviour {
         //Flip the Checked bool on this object to true
         Checked = true;
 
+        //Check each of the objects neighbors
         foreach (GameObject Hex in Neighbors)
         {
             //If the neighbor type isn't null
@@ -245,11 +245,8 @@ public class HexInfo : MonoBehaviour {
         //Switch old hex to the new sprite
         GMScript.CurrentlySelected.GetComponent<HexInfo>().SpriteChanger();
 
-        Checked = WinSearch();
+        WinSearch();
         Debug.Log("Switched: " + OtherHex.X + "," + OtherHex.Y + " With " + X + "," + Y);
-        //Increment the moves counter
-        GMScript.Moves++;
-        GMScript.UpdateMoveCounter();
     }
 
     //Catapillar move for the gemini
@@ -272,9 +269,7 @@ public class HexInfo : MonoBehaviour {
 
             Checked = WinSearch();
             Debug.Log("Switched: " + Hex.X + "," + Hex.Y + " With " + X + "," + Y);
-            //Increment the moves counter
-            GMScript.Moves += 2;
-            GMScript.UpdateMoveCounter();
+
         }
     }
 
@@ -332,8 +327,12 @@ public class HexInfo : MonoBehaviour {
             {
                 if (IsNeighbor(Hex.X, Hex.Y, Child.GetComponent<HexInfo>().X, Child.GetComponent<HexInfo>().Y, I))
                 {
-                    GameObject Overlay = Instantiate(ClickedOverlay, new Vector3(Child.transform.position.x, Child.transform.position.y, Child.transform.position.z), Quaternion.identity);
-                    Overlay.transform.parent = OverlayParent.transform;
+                    //Check if the hex is actually availiable to move to
+                    if (Child.gameObject.activeSelf)
+                    {
+                        GameObject Overlay = Instantiate(ClickedOverlay, new Vector3(Child.transform.position.x, Child.transform.position.y, Child.transform.position.z), Quaternion.identity);
+                        Overlay.transform.parent = OverlayParent.transform;
+                    }
                 }
 
             }

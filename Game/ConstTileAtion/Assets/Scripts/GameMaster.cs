@@ -14,7 +14,7 @@ public class GameMaster : MonoBehaviour {
 
     [Header("GameInfo")]
     [Range(0,3)]public int LayersBeingUsed;
-    public int Moves, NumToWin;
+    public int MovesLeft, NumToWin;
     public bool Clicked = false;
     public int CurrentlySelectedType;
     public GameObject CurrentlySelected;
@@ -92,12 +92,6 @@ public class GameMaster : MonoBehaviour {
                 Hex.gameObject.SetActive(false);
         }
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-
-    }
     
     public void CheckWin()
     {
@@ -116,14 +110,14 @@ public class GameMaster : MonoBehaviour {
         {
             //Do thing that says you are going to win
             Debug.Log("Winner!");
-            ResetGame();
+            //ResetGame();
         } 
     }
 
     private void ResetGame()
     {
         NumToWin = 0;
-        Moves = 0;
+        //MovesLeft = 0;
         foreach (Transform Parent in this.transform)
         {
             foreach (Transform Child in Parent.transform)
@@ -133,8 +127,9 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
-    public void UpdateMoveCounter()
+    public void UpdateMoveCounter(int MovesReduced)
     {
-        MoveCounter.text = Moves.ToString();
+        MovesLeft -= MovesReduced;
+        MoveCounter.text = MovesLeft.ToString();
     }
 }

@@ -10,30 +10,32 @@ using UnityEngine.UI;
 
 public class EditorUIButtons : MonoBehaviour
 {
-    public Canvas SaveCanvas;
-    public GameObject LoadObject;
-    public Canvas LoadCanvas;
-    public GameObject GMaster;
+    public Canvas SaveCanvas, LoadCanvas, GameCanvas;
+    public GameObject GMaster, LoadUI, LoadObject;
     public GameMaster GMScript;
-    public GameObject LoadUI;
     public Text ErrorText;
-
     public InputField LevelNameTextField;
+    public Button SwitchMode;
 
     private void Start()
     {
         GMScript = GMaster.GetComponent<GameMaster>();
-        //Find out if we should be in editor mode
-        if (!GMScript.EditMode)
-        {
-            this.gameObject.SetActive(false);
-        }
+        //Switch the game state to whatever it should be
+        SwitchGameState();
+    }
+
+    public void SwitchGameState()
+    {
+        //Set the editor canvas to be active if we are in editmode
+        gameObject.SetActive(GMScript.EditMode);
+        //And set the game UI to active if we are not
+        GameCanvas.gameObject.SetActive(!GMScript.EditMode);
 
         SaveCanvas.gameObject.SetActive(false); //Sets the canvas to false at the start of the play
         LoadCanvas.gameObject.SetActive(false);
+        Debug.Log("Canvases switched!");
     }
-
-    //
+    
     public void SaveCanvasToggle()
     {
         //Flick the SaveCanvas to whatever it wasn't before
