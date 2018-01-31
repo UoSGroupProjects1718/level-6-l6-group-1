@@ -11,10 +11,12 @@ public class OverworldDrag : MonoBehaviour
     private Vector3 Origin;
     private Vector3 Difference;
     private bool Drag = false;
+
     void Start()
     {
         ResetCamera = Camera.main.transform.position;
     }
+
     void LateUpdate()
     {
         if (Input.GetMouseButton(0))
