@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LoadInstantiatedUIData : MonoBehaviour {
 
     public GameObject GMaster;
-    public TestSaveandLoadScript SaveAndLoadScript;
+    public SaveAndLoad SaveAndLoadScript;
     public string LvlName;
     public int LvlID;
     public string LvlType;
@@ -17,7 +17,7 @@ public class LoadInstantiatedUIData : MonoBehaviour {
     {
             //Find the GameMaster script
         GMaster = GameObject.Find("HexBaseHolder");
-        SaveAndLoadScript = GMaster.GetComponent<TestSaveandLoadScript>();
+        SaveAndLoadScript = GMaster.GetComponent<SaveAndLoad>();
 
             //Set the text values
         //Get the text component of child number 3 (LevelName)
@@ -84,7 +84,7 @@ public class LoadInstantiatedUIData : MonoBehaviour {
                             {
                                 //And if this is the correct Hex, assign it 
                                 Child.GetComponent<HexInfo>().CurrentHexType = JSONHex.HexID;
-                                Child.GetComponent<HexInfo>().SetHexSprite();
+                                Child.GetComponent<HexInfo>().SpriteChanger();
                             }
                         }
                     }
@@ -103,7 +103,7 @@ public class LoadInstantiatedUIData : MonoBehaviour {
             {
                 HexInfo Hex = Child.GetComponent<HexInfo>();
                 Hex.CurrentHexType = HexInfo.HexType.Null;
-                Hex.SetHexSprite();
+                Hex.SpriteChanger();
             }
         }
     }

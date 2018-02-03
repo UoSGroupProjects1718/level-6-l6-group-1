@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour {
 
@@ -33,7 +34,7 @@ public class GameMaster : MonoBehaviour {
         {
             EditMode = false;
             //Call the loadlevel function with the LevelID supplied by the persistant object
-            this.gameObject.GetComponent<TestSaveandLoadScript>().LoadLevel(Persistant.GetComponent<PersistantInfo>().LevelType);
+            this.gameObject.GetComponent<SaveAndLoad>().LoadLevel(Persistant.GetComponent<PersistantInfo>().LevelType);
         }
 
         //Call this on start to set the number of hex layers
@@ -110,21 +111,13 @@ public class GameMaster : MonoBehaviour {
         {
             //Do thing that says you are going to win
             Debug.Log("Winner!");
-            //ResetGame();
+            WinGame();
         } 
     }
 
-    private void ResetGame()
+    private void WinGame()
     {
-        NumToWin = 0;
-        //MovesLeft = 0;
-        foreach (Transform Parent in this.transform)
-        {
-            foreach (Transform Child in Parent.transform)
-            {
-                Child.GetComponent<HexInfo>().SetHexSprite();
-            }
-        }
+        SceneManager.LoadScene("Overworld");
     }
 
     public void UpdateMoveCounter(int MovesReduced)

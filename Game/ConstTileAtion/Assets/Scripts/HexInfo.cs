@@ -76,12 +76,6 @@ public class HexInfo : MonoBehaviour {
         }
     }
 
-    //Set the sprites of the hexes, this will be run at the start of the game and every time it resets
-    public void SetHexSprite()
-    {
-        SpriteChanger();
-    }
-
     //Checks if two tiles are neighbors within a certain range
     public bool IsNeighbor(int CurrentX, int CurrentY, int TargetX, int TargetY, int Offset)
     {
@@ -102,7 +96,7 @@ public class HexInfo : MonoBehaviour {
     }
 
     //Function to call whenever the sprite needs changing
-    void SpriteChanger()
+    public void SpriteChanger()
     {
         SprRenderer.sprite = SpriteArray[(int)CurrentHexType];
     }

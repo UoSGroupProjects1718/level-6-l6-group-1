@@ -77,7 +77,7 @@ public class EditorUIButtons : MonoBehaviour
             Destroy(item.gameObject);
         }
         //find each instance of a level stored and add a UI gameobject for that
-        foreach (var item in GMaster.GetComponent<TestSaveandLoadScript>().AllLevels.Levels)
+        foreach (var item in GMaster.GetComponent<SaveAndLoad>().AllLevels.Levels)
         {
             //Create a UI element from a prefab
             GameObject UIElement = Instantiate(LoadUI, LoadObject.transform);
@@ -98,11 +98,11 @@ public class EditorUIButtons : MonoBehaviour
     //Deletes an entry based on its ID
     public void DeleteEntry(int DeleteID)
     {
-        foreach (var item in GMaster.GetComponent<TestSaveandLoadScript>().AllLevels.Levels)
+        foreach (var item in GMaster.GetComponent<SaveAndLoad>().AllLevels.Levels)
         {
             if (item.LevelNumber == DeleteID)
             {
-                GMaster.GetComponent<TestSaveandLoadScript>().AllLevels.Levels.Remove(item);
+                GMaster.GetComponent<SaveAndLoad>().AllLevels.Levels.Remove(item);
             }
         }
     }

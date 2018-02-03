@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System.IO;
 using System;
 
-public class TestSaveandLoadScript : MonoBehaviour
+public class SaveAndLoad : MonoBehaviour
 {
    
     public JSONLevel AllLevels = new JSONLevel();
@@ -17,6 +17,21 @@ public class TestSaveandLoadScript : MonoBehaviour
     public InputField InputName, MaxMovesInput, StardustRewards;
     public Dropdown InputType, BackgroundDropdown;
     public Text SaveErrorText;
+
+    public void ResetGame()
+    {
+        //Loop through all current hexes and set them to Null
+        foreach (Transform Ring in GMaster.transform)
+        {
+            foreach (Transform HexMarker in Ring.transform)
+            {
+                HexInfo hexInfo = HexMarker.GetComponent<HexInfo>();
+                hexInfo.CurrentHexType = HexInfo.HexType.Null;
+                hexInfo.SpriteChanger();
+
+            }
+        }
+    }
 
 
 
@@ -174,7 +189,7 @@ public class TestSaveandLoadScript : MonoBehaviour
                 {
                     HexInfo HexScript = HexMarker.GetComponent<HexInfo>();
                     HexScript.CurrentHexType = Hex.HexID;
-                    HexScript.SetHexSprite();
+                    HexScript.SpriteChanger();
 
                     //If the hex loaded in is not a null hex, increase the number needed to win
                     if (Hex.HexID != HexInfo.HexType.Null)
