@@ -5,6 +5,7 @@ using UnityEngine;
 //Source code found here, one of the comments. Says it is C++. but is really C#
 //https://answers.unity.com/questions/387800/click-holddrag-move-camera.html
 
+
 public class OverworldDrag : MonoBehaviour
 {
     private Vector3 ResetCamera;
@@ -43,23 +44,3 @@ public class OverworldDrag : MonoBehaviour
         }
     }
 }
- //   public float DragSpeed = 2;
- //   private Vector3 DragOrigin;
-
-	
-	//// Update is called once per frame
-	//void LateUpdate ()
- //   {
- //       if (Input.GetMouseButtonDown(0))
- //       {
- //           DragOrigin = Input.mousePosition;
- //           return;
- //       }
- //       if (!Input.GetMouseButton(0))
- //           return;
-
- //       Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - DragOrigin);
- //       Vector3 move = new Vector3(pos.x * DragSpeed, pos.y * DragSpeed, 0);
-
- //       transform.Translate(move, Space.World);
-	//}

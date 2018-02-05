@@ -53,7 +53,7 @@ public class SaveAndLoad : MonoBehaviour
         }
     }
     //Find and create the correct path to the JSON file holding the levels
-    private void ReadJSONText()
+    public void ReadJSONText()
     {
         TextAsset JSONText = Resources.Load("Levels") as TextAsset;
         JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
@@ -229,6 +229,8 @@ public class SaveAndLoad : MonoBehaviour
             }
         }
     }    
+
+
 }
 
 
