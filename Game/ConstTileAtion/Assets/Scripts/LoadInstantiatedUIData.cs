@@ -33,11 +33,6 @@ public class LoadInstantiatedUIData : MonoBehaviour {
         //Set the text element
         LevelNo.text = LvlType;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     //Function that is called when the "Delete" button is clicked on the overlay
     public void Delete()

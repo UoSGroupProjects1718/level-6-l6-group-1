@@ -23,23 +23,21 @@ public class GameMaster : MonoBehaviour {
     public bool EditMode = true;
     public bool DisableHexes = false;
     public Slider LayerSlider;
+    GameObject Persistant;
 
         // Use this for initialization
     void Start()
     {
 
         //Find the gameobject that indicates this level was started from the title screen
-        GameObject Persistant = GameObject.Find("PersistantObject");
+        Persistant = GameObject.Find("PersistantObject");
         if (Persistant != null)
         {
             EditMode = false;
-            //Call the loadlevel function with the LevelID supplied by the persistant object
-            this.gameObject.GetComponent<SaveAndLoad>().LoadLevel(Persistant.GetComponent<PersistantInfo>().LevelType);
+            //Call the ResetLevel function
+            ResetLevel();
         }
-
-        //Call this on start to set the number of hex layers
-        LayerSetter();
-
+        
         //If editmode is true, set a listener on the slider to make it dynamically 
         //adjust the layers shown
         if (EditMode)
@@ -124,5 +122,13 @@ public class GameMaster : MonoBehaviour {
     {
         MovesLeft -= MovesReduced;
         MoveCounter.text = MovesLeft.ToString();
+    }
+
+    public void ResetLevel()
+    {
+        //Call the Load function with the level ID determined by the persistant object
+        this.gameObject.GetComponent<SaveAndLoad>().LoadLevel(Persistant.GetComponent<PersistantInfo>().LevelType);
+        //Call this on start to set the number of hex layers
+        LayerSetter();
     }
 }
