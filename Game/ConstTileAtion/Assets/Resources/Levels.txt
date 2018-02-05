@@ -2,7 +2,7 @@
     "Levels": [
         {
             "LevelName": "Aries Level 1 Easy",
-            "Leveltype": 1,
+            "Leveltype": 0,
             "LevelNumber": 0,
             "HexLayers": 1,
             "MaximumMoves": 2,
@@ -198,7 +198,7 @@
         },
         {
             "LevelName": "Aries Level 2 Easy",
-            "Leveltype": 1,
+            "Leveltype": 0,
             "LevelNumber": 1,
             "HexLayers": 2,
             "MaximumMoves": 7,
@@ -394,7 +394,7 @@
         },
         {
             "LevelName": "Aries Level 3 Easy",
-            "Leveltype": 1,
+            "Leveltype": 0,
             "LevelNumber": 2,
             "HexLayers": 3,
             "MaximumMoves": 8,
@@ -590,7 +590,7 @@
         },
         {
             "LevelName": "Gemini Level 1 Easy",
-            "Leveltype": 4,
+            "Leveltype": 2,
             "LevelNumber": 3,
             "HexLayers": 2,
             "MaximumMoves": 10,
@@ -786,7 +786,7 @@
         },
         {
             "LevelName": "Gemini Level 2 Easy",
-            "Leveltype": 4,
+            "Leveltype": 2,
             "LevelNumber": 4,
             "HexLayers": 3,
             "MaximumMoves": 10,
@@ -982,7 +982,7 @@
         },
         {
             "LevelName": "Gemini Level 3 Easy",
-            "Leveltype": 4,
+            "Leveltype": 2,
             "LevelNumber": 5,
             "HexLayers": 3,
             "MaximumMoves": 10,
@@ -1178,7 +1178,7 @@
         },
         {
             "LevelName": "Taurus Level 1 Easy ",
-            "Leveltype": 0,
+            "Leveltype": 1,
             "LevelNumber": 6,
             "HexLayers": 2,
             "MaximumMoves": 2,
@@ -1374,7 +1374,7 @@
         },
         {
             "LevelName": "Taurus Level 2 Easy",
-            "Leveltype": 10,
+            "Leveltype": 1,
             "LevelNumber": 7,
             "HexLayers": 3,
             "MaximumMoves": 5,
@@ -1570,7 +1570,7 @@
         },
         {
             "LevelName": "Taurus Level 3 Easy",
-            "Leveltype": 10,
+            "Leveltype": 1,
             "LevelNumber": 8,
             "HexLayers": 3,
             "MaximumMoves": 7,
@@ -1766,7 +1766,7 @@
         },
         {
             "LevelName": "Aries/Gemini level 1 Easy",
-            "Leveltype": 0,
+            "Leveltype": 12,
             "LevelNumber": 9,
             "HexLayers": 3,
             "MaximumMoves": 8,
@@ -1962,7 +1962,7 @@
         },
         {
             "LevelName": "Aries/Taurus",
-            "Leveltype": 0,
+            "Leveltype": 12,
             "LevelNumber": 10,
             "HexLayers": 2,
             "MaximumMoves": 8,
@@ -2158,7 +2158,7 @@
         },
         {
             "LevelName": "Aries/Gemini/Taurus Level 1",
-            "Leveltype": 4,
+            "Leveltype": 12,
             "LevelNumber": 11,
             "HexLayers": 3,
             "MaximumMoves": 8,
@@ -2354,7 +2354,7 @@
         },
         {
             "LevelName": "Taurus/Gemini",
-            "Leveltype": 4,
+            "Leveltype": 12,
             "LevelNumber": 12,
             "HexLayers": 3,
             "MaximumMoves": 8,
@@ -2535,6 +2535,202 @@
                     "X": -3,
                     "Y": 2,
                     "HexID": 2
+                },
+                {
+                    "X": -3,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 0,
+                    "HexID": 12
+                }
+            ]
+        },
+        {
+            "LevelName": "Test Taurus",
+            "Leveltype": 1,
+            "LevelNumber": 13,
+            "HexLayers": 3,
+            "MaximumMoves": 4,
+            "Background": 0,
+            "StardustRewardForLevel": 1234,
+            "Hexes": [
+                {
+                    "X": 0,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 0,
+                    "HexID": 1
+                },
+                {
+                    "X": 1,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 1,
+                    "HexID": 1
+                },
+                {
+                    "X": -1,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": -1,
+                    "HexID": 1
+                },
+                {
+                    "X": 0,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": -2,
+                    "HexID": 1
+                },
+                {
+                    "X": 1,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 2,
+                    "HexID": 12
                 },
                 {
                     "X": -3,

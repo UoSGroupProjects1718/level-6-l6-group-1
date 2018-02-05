@@ -65,7 +65,7 @@ public class Overworld : MonoBehaviour {
         //Work out how far apart the signs should be
         float Spacing = 360 / Sign.transform.childCount;
         float Rotation = 0f;
-        foreach (GameObject Child in Sign.transform)
+        foreach (Transform Child in Sign.transform)
         {
             Vector3 FinalRotation = new Vector3(0, 0, Rotation);
             Child.transform.Rotate(FinalRotation);
