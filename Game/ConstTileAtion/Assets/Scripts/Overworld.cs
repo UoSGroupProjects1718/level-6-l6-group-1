@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Overworld : MonoBehaviour {
 
@@ -17,6 +18,7 @@ public class Overworld : MonoBehaviour {
 
 	}
 
+    //Sets the Level ID correctly in the lollipop
     public void SetLevelID(int LevelID)
     {
         Persistant.GetComponent<PersistantInfo>().LevelType = LevelID;
@@ -33,7 +35,7 @@ public class Overworld : MonoBehaviour {
         TextAsset JSONText = Resources.Load("Levels") as TextAsset;
         JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
 
-        //Search through each of the levels to find how there are of each
+        //Search through each of the levels to find how many there are of each
         for (int i = 0; i < 12; i++)
         {
             foreach (var Level in AllLevels.Levels)
@@ -46,12 +48,14 @@ public class Overworld : MonoBehaviour {
                 }
             }
             SpreadLevels(OverworldSigns[i]);
+            OverworldSigns[i].SetActive(false);
         }
 
 
 
     }
 
+    //Instantiates the lollipops where they need to be
     public void InstantiateLevelSelectors(int LevelID, GameObject Sign)
     {
         GameObject Level = Instantiate(LevelLollipop, Sign.transform);
@@ -62,8 +66,13 @@ public class Overworld : MonoBehaviour {
     //Function to spread the levels equally around the circle
     public void SpreadLevels(GameObject Sign)
     {
+        float Spacing = 0;
+        if (Sign.transform.childCount != 0)
+        {
+            Spacing = 360 / Sign.transform.childCount;
+        }
         //Work out how far apart the signs should be
-        float Spacing = 360 / Sign.transform.childCount;
+         
         float Rotation = 0f;
         foreach (Transform Child in Sign.transform)
         {
@@ -71,6 +80,13 @@ public class Overworld : MonoBehaviour {
             Child.transform.Rotate(FinalRotation);
             Rotation += Spacing;
         }
+    }
+
+    public void ButtonLevelShower(GameObject LevelHolder)
+    {
+        LevelHolder.SetActive(true);
+        Debug.Log("Taurus Pressed");
+        
     }
 
 }
