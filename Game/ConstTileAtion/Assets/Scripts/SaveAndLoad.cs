@@ -12,7 +12,7 @@ public class SaveAndLoad : MonoBehaviour
     public JSONLevel AllLevels = new JSONLevel();
 
     private string JSONFilePath;
-
+    public GameObject OverlayParent;
     public GameMaster GMaster;
     public InputField InputName, MaxMovesInput, StardustRewards;
     public Dropdown InputType, BackgroundDropdown;
@@ -131,6 +131,14 @@ public class SaveAndLoad : MonoBehaviour
         if ( LoadedLevel == null)
             return false;
 
+        //Reset the NumToWin - bugfix
+        GMaster.NumToWin = 0;
+        //Destroy all of the remaining highlights
+        foreach (Transform item in OverlayParent.transform)
+        {
+            Destroy(item.gameObject);
+        }
+
         //Load all of the Hexes
         foreach (HexData Hex in LoadedLevel.Hexes)
         {
@@ -143,6 +151,7 @@ public class SaveAndLoad : MonoBehaviour
 
         //Set the MovesLeft variable in the gamemaster
         GMaster.MovesLeft = LoadedLevel.MaximumMoves;
+        //Update the moves counter, so that it sets it correctly on the GUI
         GMaster.UpdateMoveCounter(0);
 
         //Set the current background

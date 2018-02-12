@@ -55,7 +55,7 @@ public class HexInfo : MonoBehaviour {
         GMScript = GMaster.GetComponent<GameMaster>();
         SprRenderer = GetComponent<SpriteRenderer>();
 
-        if (Layer <=GMScript.LayersBeingUsed)
+        if (Layer <= GMScript.LayersBeingUsed)
         {
             //Find neighbors and add them to the neighbor list
             foreach (Transform Holder in GMaster.transform)
@@ -168,6 +168,7 @@ public class HexInfo : MonoBehaviour {
                     if (IsNeighbor(X, Y, HexScript.X, HexScript.Y, 2))
                     {
                         Move(HexScript);
+                        GMScript.UpdateMoveCounter(1);
                         break;
                     }
                     CantMove(HexScript);
@@ -176,6 +177,7 @@ public class HexInfo : MonoBehaviour {
                     if (IsNeighbor(X, Y, HexScript.X, HexScript.Y, 1))
                     {
                         GeminiMove(HexScript);
+                        GMScript.UpdateMoveCounter(1);
                         break;
                     }
                     break;

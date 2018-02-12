@@ -35,7 +35,7 @@ public class GameMaster : MonoBehaviour {
         {
             EditMode = false;
             //Call the ResetLevel function
-            ResetLevel();
+            LoadLevel();
         }
         
         //If editmode is true, set a listener on the slider to make it dynamically 
@@ -115,20 +115,40 @@ public class GameMaster : MonoBehaviour {
 
     private void WinGame()
     {
-        SceneManager.LoadScene("Overworld");
+        DisableHexes = true;
+        this.GetComponent<UIScripts>().WinMenu.SetActive(true);
+
+    }
+    private void LoseGame()
+    {
+        UIScripts UI = this.GetComponent<UIScripts>();
+        UI.LoseMenu.SetActive(true);
     }
 
     public void UpdateMoveCounter(int MovesReduced)
     {
         MovesLeft -= MovesReduced;
-        MoveCounter.text = MovesLeft.ToString();
+        //If the player has no moves left
+        if (MovesLeft < 0)
+        {
+            LoseGame();
+        }
+        else
+        {
+            MoveCounter.text = MovesLeft.ToString();
+        }
     }
 
-    public void ResetLevel()
+    public void LoadLevel()
     {
         //Call the Load function with the level ID determined by the persistant object
         this.gameObject.GetComponent<SaveAndLoad>().LoadLevel(Persistant.GetComponent<PersistantInfo>().LevelType);
         //Call this on start to set the number of hex layers
         LayerSetter();
+    }
+
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene("Base Level");
     }
 }
