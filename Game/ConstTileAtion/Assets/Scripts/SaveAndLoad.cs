@@ -49,14 +49,9 @@ public class SaveAndLoad : MonoBehaviour
         //Otherwise, just read the data into memory
         else
         {
-            ReadJSONText();
+            TextAsset JSONText = Resources.Load("Levels") as TextAsset;
+            JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
         }
-    }
-    //Find and create the correct path to the JSON file holding the levels
-    public void ReadJSONText()
-    {
-        TextAsset JSONText = Resources.Load("Levels") as TextAsset;
-        JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
     }
 
     public void SaveLevel()
@@ -253,6 +248,7 @@ public class LevelData
     public int MaximumMoves;
     public int Background;
     public int StardustRewardForLevel;
+    public int StarsEarned;
     //List to hold all hex data for this level
     public List<HexData> Hexes = new List<HexData>();
 }
