@@ -11,6 +11,8 @@ public class Overworld : MonoBehaviour {
 
     public GameObject Persistant, LevelLollipop;
     public GameObject[] OverworldSigns;
+    public GameObject MainMenu, LevelSelect;
+
     //The logical order the levels should be played through in
     public int[] Levels;
 	// Use this for initialization
@@ -50,7 +52,7 @@ public class Overworld : MonoBehaviour {
                 }
             }
             SpreadLevels(OverworldSigns[i]);
-            OverworldSigns[i].SetActive(false);
+            //OverworldSigns[i].SetActive(false);
         }
 
 
@@ -98,7 +100,15 @@ public class Overworld : MonoBehaviour {
         //And then load it
         SetLevelID(LevelToLoad);
 
-    } 
+    }
+
+    //Shows the level select menu or the main menu
+    public void ButtonLevelSelect()
+    {
+        MainMenu.SetActive(!MainMenu.activeSelf);
+        LevelSelect.SetActive(!MainMenu.activeSelf);
+    }
+
 
 
 }
