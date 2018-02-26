@@ -15,8 +15,35 @@ public class SaveAndLoad : MonoBehaviour
     public GameObject OverlayParent;
     public GameMaster GMaster;
     public InputField InputName, MaxMovesInput, StardustRewards;
-    public Dropdown InputType, BackgroundDropdown;
+    public Dropdown InputType, BackgroundDropdown, DifficultyDropdown;
     public Text SaveErrorText;
+    public PersistantInfo PersistantScript;
+    public PlayerData Player;
+    
+    //On start, load the level-data that is currently saved
+    void Awake()
+    {
+        PersistantScript = GameObject.Find("PersistantObject").GetComponent<PersistantInfo>();
+        Player = GameObject.Find("PersistantObject").GetComponent<PlayerData>();
+
+        //If its the editor, load it in such a way that it can be edited at runtime
+        if (Application.isEditor)
+        {
+            //At the start, create a version of the JSON file in memory and populate it
+            JSONFilePath = Path.Combine(Application.dataPath, "Resources\\Levels.txt");
+            string JsonString = File.ReadAllText(JSONFilePath);
+            JsonUtility.FromJsonOverwrite(JsonString, AllLevels);
+        }
+        //Otherwise, just read the data into memory
+        else
+        {
+            TextAsset JSONText = Resources.Load("Levels") as TextAsset;
+            JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
+            GMaster.LoadLevel();
+        }
+    }
+
+
 
     public void ResetGame()
     {
@@ -32,28 +59,7 @@ public class SaveAndLoad : MonoBehaviour
             }
         }
     }
-
-
-
-    //On start, load the level-data that is currently saved
-    void Awake()
-    {
-        //If its the editor, load it in such a way that it can be edited at runtime
-        if (Application.isEditor)
-        {
-            //At the start, create a version of the JSON file in memory and populate it
-            JSONFilePath = Path.Combine(Application.dataPath, "Resources\\Levels.txt");
-            string JsonString = File.ReadAllText(JSONFilePath);
-            JsonUtility.FromJsonOverwrite(JsonString, AllLevels);
-        }
-        //Otherwise, just read the data into memory
-        else
-        {
-            TextAsset JSONText = Resources.Load("Levels") as TextAsset;
-            JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
-        }
-    }
-
+    
     public void SaveLevel()
     {
         //Ceate a new level and add the correct data to it
@@ -76,7 +82,7 @@ public class SaveAndLoad : MonoBehaviour
         LVLData.MaximumMoves = Convert.ToInt32(MaxMovesInput.text);
         LVLData.Background = BackgroundDropdown.value;
         LVLData.StardustRewardForLevel = Convert.ToInt32(StardustRewards.text);
-
+        LVLData.Difficulty = DifficultyDropdown.value;
 
         //run the function to add the hex-data to the level
         SaveHexes(LVLData);
@@ -124,10 +130,26 @@ public class SaveAndLoad : MonoBehaviour
     }
 
     //Loads a specific level from the JSON list
-    public bool LoadLevel(int LevelToLoadID)
+    public bool LoadLevel(HexInfo.HexType LevelType, int LevelDifficulty)
     {
-        //Call function to find out which level we should be loading
-        LevelData LoadedLevel = FindLevel(LevelToLoadID);
+        LevelData LoadedLevel;
+        //If the Continue bool is set to true, that means we need to load the next level from the playerdata
+        if (PersistantScript.Continue)
+        {
+            do
+            {
+                LoadedLevel = FindIndividualLevel(PersistantScript.LevelType, PersistantScript.LevelDifficulty);
+
+            } while (LoadedLevel == null);
+        }
+        //If the "Next Level" button is pressed, we need to find the next level from the one that was just playing
+        //This also works for specific levels
+        else
+        {
+            LoadedLevel = FindIndividualLevel(LevelType, LevelDifficulty);
+        }
+
+        
         if ( LoadedLevel == null)
             return false;
 
@@ -167,12 +189,14 @@ public class SaveAndLoad : MonoBehaviour
         BCScript.ChangeBackground(BackgroundID);
     }
 
-    private LevelData FindLevel(int LevelToLoadID)
+    private LevelData FindNextLevel(HexInfo.HexType LevelType, int LevelDiff)
     {
-        //Find the correct level ID
+        //Find a level which matches all of the criteria
         foreach (var item in AllLevels.Levels)
         {
-            if (item.LevelNumber == LevelToLoadID)
+            //If the level is of the correct type, and the correct difficulty
+            //And the user hasn't earned any stars on it yet
+            if (item.Leveltype == LevelType && item.Difficulty == LevelDiff)
             {
                 return item;
             }
@@ -180,6 +204,22 @@ public class SaveAndLoad : MonoBehaviour
         Debug.Log("Level ID does not exist");
         return null;
     }
+
+    private LevelData FindIndividualLevel(HexInfo.HexType LevelType, int LevelDiff)
+    {
+        //Find a level which matches all of the criteria
+        foreach (var item in AllLevels.Levels)
+        {
+            //If the level is of the correct type, and the correct difficulty
+            if (item.Leveltype == LevelType && item.Difficulty == LevelDiff)
+            {
+                return item;
+            }
+        }
+        Debug.Log("Level ID does not exist");
+        return null;
+    }
+
 
     //Find a hex that coresponds to the one stored in JSON
     private void HexFinder(HexData Hex)
@@ -258,6 +298,7 @@ public class LevelData
     public int Background;
     public int StardustRewardForLevel;
     public int StarsEarned;
+    public int Difficulty;
     //List to hold all hex data for this level
     public List<HexData> Hexes = new List<HexData>();
 }

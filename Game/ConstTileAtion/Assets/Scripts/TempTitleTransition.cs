@@ -57,7 +57,7 @@ public class TempTitleTransition : MonoBehaviour
 
     public void StartGame()
     {
-        Persistant.GetComponent<PersistantInfo>().LevelType = LevelToStartID;
+        Persistant.GetComponent<PersistantInfo>().LevelType = (HexInfo.HexType)LevelToStartID;
         SceneManager.LoadSceneAsync("Base Level");
     }
 }

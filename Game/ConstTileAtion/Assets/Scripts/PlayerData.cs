@@ -41,6 +41,6 @@ public class PlayerData : MonoBehaviour {
 public class JSONPlayerData
 {
     public int Stardust;
-    public int CurrentLevel;
+    public int LastPlayedSign, LastPlayedDiff;
     public int CurrentLives;
 }

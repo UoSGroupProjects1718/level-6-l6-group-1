@@ -35,7 +35,7 @@ public class GameMaster : MonoBehaviour {
         {
             EditMode = false;
             //Call the ResetLevel function
-            LoadLevel();
+            //LoadLevel();
         }
         
         //If editmode is true, set a listener on the slider to make it dynamically 
@@ -141,10 +141,25 @@ public class GameMaster : MonoBehaviour {
 
     public void LoadLevel()
     {
-        //Call the Load function with the level ID determined by the persistant object
-        this.gameObject.GetComponent<SaveAndLoad>().LoadLevel(Persistant.GetComponent<PersistantInfo>().LevelType);
-        //Call this on start to set the number of hex layers
-        LayerSetter();
+        PersistantInfo LevelInfo = Persistant.GetComponent<PersistantInfo>();
+        //Call the Load function with the level information stored in the persistant object
+        if (!this.gameObject.GetComponent<SaveAndLoad>().LoadLevel
+            (LevelInfo.LevelType, LevelInfo.LevelDifficulty))
+        {
+            //If the LoadLevel function returns false, increment the level difficulty we are looking for
+            LevelInfo.LevelDifficulty++;
+            //If the level is now more difficult than we have levels for, move on to the next star sign
+            if (LevelInfo.LevelDifficulty > 3)
+            {
+                //Incrememnt the level type
+                LevelInfo.LevelType++;
+                //Reset the level difficulty since we are on a new leveltype
+                LevelInfo.LevelDifficulty = 0;
+            }
+            //Reset the level to load the new stuff
+            ResetLevel();
+        }
+        
     }
 
     public void ResetLevel()

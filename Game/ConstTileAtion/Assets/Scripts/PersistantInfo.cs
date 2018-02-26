@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PersistantInfo : MonoBehaviour
 {
-    public int LevelType;
+    public HexInfo.HexType LevelType;
+    public int LevelDifficulty;
+    public bool Continue;
     public int Lives = 3;
 
     private void Awake()
