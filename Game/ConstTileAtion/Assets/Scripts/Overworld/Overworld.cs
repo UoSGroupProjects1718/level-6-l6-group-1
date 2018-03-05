@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class Overworld : MonoBehaviour {
 
-    public GameObject Persistant, LevelLollipop;
+    public GameObject Persistant;
     public GameObject[] OverworldSigns;
     public GameObject MainMenu, LevelSelect;
 
@@ -31,22 +31,6 @@ public class Overworld : MonoBehaviour {
         //Find and create the correct path to the JSON file holding the levels
         TextAsset JSONText = Resources.Load("Levels") as TextAsset;
         JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
-
-        //Search through each of the levels to find how many there are of each
-        for (int i = 0; i < 12; i++)
-        {
-            foreach (var Level in AllLevels.Levels)
-            {
-                //Compare the leveltype being looked at to the one we are trying to find
-                if ((int)Level.Leveltype == i)
-                {
-
-                }
-            }
-        }
-
-
-
     }
 
     public void ButtonLevelShower(GameObject LevelHolder)
@@ -57,7 +41,8 @@ public class Overworld : MonoBehaviour {
 
     public void ButtonContinue()
     {
-        //SetLevelID(LevelToLoad);
+
+        SceneManager.LoadSceneAsync("Base Level");
 
     }
 

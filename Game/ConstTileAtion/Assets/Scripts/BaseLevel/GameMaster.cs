@@ -23,7 +23,9 @@ public class GameMaster : MonoBehaviour {
     public bool EditMode = true;
     public bool DisableHexes = false;
     public Slider LayerSlider;
+    public Image[] StarsShown;
     GameObject Persistant;
+    SaveAndLoad SaveAndLoadScript;
 
         // Use this for initialization
     void Start()
@@ -31,6 +33,7 @@ public class GameMaster : MonoBehaviour {
 
         //Find the gameobject that indicates this level was started from the title screen
         Persistant = GameObject.Find("PersistantObject");
+        SaveAndLoadScript = this.gameObject.GetComponent<SaveAndLoad>();
         if (Persistant != null)
         {
             EditMode = false;
@@ -116,6 +119,13 @@ public class GameMaster : MonoBehaviour {
     private void WinGame()
     {
         DisableHexes = true;
+        //Set the number of stars the user has earned in the UI
+        for (int i = 0; i < StarsEarned(); i++)
+        {
+            StarsShown[i].gameObject.SetActive(true);
+        }
+        //Set the number of stars the user has earned in the JSON level file (make sure it gets saved at some point)
+        SaveAndLoadScript.CurrentLevel.StarsEarned = StarsEarned();
         this.GetComponent<UIScripts>().WinMenu.SetActive(true);
 
     }
@@ -139,31 +149,39 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
-    public void LoadLevel()
+    //Loads the level, if "next level" is true, loads the next level from the one the player is currently on
+    public void LoadLevel(bool Nextlevel)
     {
-        PersistantInfo LevelInfo = Persistant.GetComponent<PersistantInfo>();
-        //Call the Load function with the level information stored in the persistant object
-        if (!this.gameObject.GetComponent<SaveAndLoad>().LoadLevel
-            (LevelInfo.LevelType, LevelInfo.LevelDifficulty))
-        {
-            //If the LoadLevel function returns false, increment the level difficulty we are looking for
-            LevelInfo.LevelDifficulty++;
-            //If the level is now more difficult than we have levels for, move on to the next star sign
-            if (LevelInfo.LevelDifficulty > 3)
-            {
-                //Incrememnt the level type
-                LevelInfo.LevelType++;
-                //Reset the level difficulty since we are on a new leveltype
-                LevelInfo.LevelDifficulty = 0;
-            }
-            //Reset the level to load the new stuff
-            ResetLevel();
-        }
-        
+        PlayerData LevelInfo = Persistant.GetComponent<PlayerData>();
+        //Call the Load function with the level information stored in the persistant object, +1 if we want the next level
+        if (Nextlevel)
+            SaveAndLoadScript.LoadLevel((HexInfo.HexType)LevelInfo.Sign, LevelInfo.Difficulty+1);
+        else
+            SaveAndLoadScript.LoadLevel((HexInfo.HexType)LevelInfo.Sign, LevelInfo.Difficulty);
+
+        //Reset the level to load the new stuff
+        ResetLevel();        
     }
 
     public void ResetLevel()
     {
         SceneManager.LoadScene("Base Level");
     }
+
+
+    //work out the number of stars the player has earned
+    private int StarsEarned()
+    {
+        int Stars = 0;
+        //Find out if they won the level
+        if (MovesLeft >= 0)
+            Stars++;
+        //Find out if they did it in exactly the optimal number of moves
+        if (MovesLeft == SaveAndLoadScript.CurrentLevel.OptimalMoves)
+            Stars++;
+        if (MovesLeft < SaveAndLoadScript.CurrentLevel.OptimalMoves)
+            Stars++;
+        return Stars;
+    }
+
 }

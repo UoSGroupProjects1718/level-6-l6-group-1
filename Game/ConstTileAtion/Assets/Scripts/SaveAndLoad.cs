@@ -11,20 +11,23 @@ public class SaveAndLoad : MonoBehaviour
    
     public JSONLevel AllLevels = new JSONLevel();
 
+    
     private string JSONFilePath;
     public GameObject OverlayParent;
     public GameMaster GMaster;
     public InputField InputName, MaxMovesInput, StardustRewards;
     public Dropdown InputType, BackgroundDropdown, DifficultyDropdown;
     public Text SaveErrorText;
-    public PersistantInfo PersistantScript;
     public PlayerData Player;
+    public LevelData CurrentLevel;
     
     //On start, load the level-data that is currently saved
     void Awake()
     {
-        PersistantScript = GameObject.Find("PersistantObject").GetComponent<PersistantInfo>();
-        Player = GameObject.Find("PersistantObject").GetComponent<PlayerData>();
+        if (!GMaster.EditMode)
+        {
+            Player = GameObject.Find("PersistantObject").GetComponent<PlayerData>();
+        }
 
         //If its the editor, load it in such a way that it can be edited at runtime
         if (Application.isEditor)
@@ -39,12 +42,10 @@ public class SaveAndLoad : MonoBehaviour
         {
             TextAsset JSONText = Resources.Load("Levels") as TextAsset;
             JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
-            GMaster.LoadLevel();
+            GMaster.LoadLevel(false);
         }
     }
-
-
-
+    
     public void ResetGame()
     {
         //Loop through all current hexes and set them to Null
@@ -132,25 +133,9 @@ public class SaveAndLoad : MonoBehaviour
     //Loads a specific level from the JSON list
     public bool LoadLevel(HexInfo.HexType LevelType, int LevelDifficulty)
     {
-        LevelData LoadedLevel;
-        //If the Continue bool is set to true, that means we need to load the next level from the playerdata
-        if (PersistantScript.Continue)
-        {
-            do
-            {
-                LoadedLevel = FindIndividualLevel(PersistantScript.LevelType, PersistantScript.LevelDifficulty);
-
-            } while (LoadedLevel == null);
-        }
-        //If the "Next Level" button is pressed, we need to find the next level from the one that was just playing
-        //This also works for specific levels
-        else
-        {
-            LoadedLevel = FindIndividualLevel(LevelType, LevelDifficulty);
-        }
-
+        CurrentLevel = NextLevel(LevelType, LevelDifficulty);
         
-        if ( LoadedLevel == null)
+        if (CurrentLevel == null)
             return false;
 
         //Reset the NumToWin - bugfix
@@ -162,22 +147,22 @@ public class SaveAndLoad : MonoBehaviour
         }
 
         //Load all of the Hexes
-        foreach (HexData Hex in LoadedLevel.Hexes)
+        foreach (HexData Hex in CurrentLevel.Hexes)
         {
             HexFinder(Hex);
         }
         //Set the number of Hex Layers that are going to be used
-        GMaster.GetComponent<GameMaster>().LayersBeingUsed = LoadedLevel.HexLayers;
+        GMaster.GetComponent<GameMaster>().LayersBeingUsed = CurrentLevel.HexLayers;
         //Call LayerSetter to put those changes into effect
         GMaster.GetComponent<GameMaster>().LayerSetter();
 
         //Set the MovesLeft variable in the gamemaster
-        GMaster.MovesLeft = LoadedLevel.MaximumMoves;
+        GMaster.MovesLeft = CurrentLevel.MaximumMoves;
         //Update the moves counter, so that it sets it correctly on the GUI
         GMaster.UpdateMoveCounter(0);
 
         //Set the current background
-        SetBackground(LoadedLevel.Background);
+        SetBackground(CurrentLevel.Background);
 
         return true;
     }
@@ -189,22 +174,38 @@ public class SaveAndLoad : MonoBehaviour
         BCScript.ChangeBackground(BackgroundID);
     }
 
-    private LevelData FindNextLevel(HexInfo.HexType LevelType, int LevelDiff)
+    //Make sure you ask for a difficulty equal to the current or one higher
+    private LevelData NextLevel(HexInfo.HexType Type, int Diff)
     {
-        //Find a level which matches all of the criteria
-        foreach (var item in AllLevels.Levels)
+        //While we don't have a level 
+        while (true)
         {
-            //If the level is of the correct type, and the correct difficulty
-            //And the user hasn't earned any stars on it yet
-            if (item.Leveltype == LevelType && item.Difficulty == LevelDiff)
+            //Search all the levels for one that matches what we want
+            foreach (var Level in AllLevels.Levels)
             {
-                return item;
+                if (Level.Leveltype == Type && Level.Difficulty == Diff)
+                {
+                    return Level;
+                }
+            }
+            //If we haven't found a level yet, increment the difficulty as long as the difficulty isn't too high
+            if (Diff < 3)
+                Diff++;
+            //If the difficulty is 3 or more, we need to reset the Difficulty and move on to the next level type
+            else
+            {
+                Diff = 0;
+                Type++;
+            }
+            //Make sure we bail out if we start looking at Null levels
+            if (Type == HexInfo.HexType.Null)
+            {
+                return null;
             }
         }
-        Debug.Log("Level ID does not exist");
-        return null;
     }
 
+    //Find one specific level
     private LevelData FindIndividualLevel(HexInfo.HexType LevelType, int LevelDiff)
     {
         //Find a level which matches all of the criteria
@@ -219,7 +220,6 @@ public class SaveAndLoad : MonoBehaviour
         Debug.Log("Level ID does not exist");
         return null;
     }
-
 
     //Find a hex that coresponds to the one stored in JSON
     private void HexFinder(HexData Hex)
@@ -273,8 +273,6 @@ public class SaveAndLoad : MonoBehaviour
             }
         }
     }    
-
-
 }
 
 
@@ -299,6 +297,7 @@ public class LevelData
     public int StardustRewardForLevel;
     public int StarsEarned;
     public int Difficulty;
+    public int OptimalMoves;
     //List to hold all hex data for this level
     public List<HexData> Hexes = new List<HexData>();
 }

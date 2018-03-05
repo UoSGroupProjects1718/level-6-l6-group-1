@@ -272,6 +272,8 @@ public class HexInfo : MonoBehaviour {
     public void CantMove(HexInfo OtherHex)
     {
         GMScript.Clicked = false;
+        //Null the currently selected to prevent bugs
+        GMScript.CurrentlySelected = null;
         Debug.Log("Can't switch: " + OtherHex.X + "," + OtherHex.Y + " With " + X + "," + Y);
     }
 
