@@ -24,13 +24,13 @@ public class GameMaster : MonoBehaviour {
     public bool DisableHexes = false;
     public Slider LayerSlider;
     public Image[] StarsShown;
-    GameObject Persistant;
+    public GameObject Persistant;
     SaveAndLoad SaveAndLoadScript;
 
         // Use this for initialization
     void Start()
     {
-
+        Debug.Log("GameMaster Start");
         //Find the gameobject that indicates this level was started from the title screen
         Persistant = GameObject.Find("PersistantObject");
         SaveAndLoadScript = this.gameObject.GetComponent<SaveAndLoad>();
@@ -38,7 +38,7 @@ public class GameMaster : MonoBehaviour {
         {
             EditMode = false;
             //Call the ResetLevel function
-            //LoadLevel();
+            LoadLevel(Persistant.GetComponent<PlayerData>().Next);
         }
         
         //If editmode is true, set a listener on the slider to make it dynamically 
@@ -118,6 +118,11 @@ public class GameMaster : MonoBehaviour {
 
     private void WinGame()
     {
+        if (true)
+        {
+
+        }
+        Debug.Log("WinGame");
         DisableHexes = true;
         //Set the number of stars the user has earned in the UI
         for (int i = 0; i < StarsEarned(); i++)
@@ -157,10 +162,7 @@ public class GameMaster : MonoBehaviour {
         if (Nextlevel)
             SaveAndLoadScript.LoadLevel((HexInfo.HexType)LevelInfo.Sign, LevelInfo.Difficulty+1);
         else
-            SaveAndLoadScript.LoadLevel((HexInfo.HexType)LevelInfo.Sign, LevelInfo.Difficulty);
-
-        //Reset the level to load the new stuff
-        ResetLevel();        
+            SaveAndLoadScript.LoadLevel((HexInfo.HexType)LevelInfo.Sign, LevelInfo.Difficulty);     
     }
 
     public void ResetLevel()

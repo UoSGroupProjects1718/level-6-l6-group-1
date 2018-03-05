@@ -10,6 +10,7 @@ public class PlayerData : MonoBehaviour {
     public JSONPlayerData Player = new JSONPlayerData();
     private string JSONPlayerFile;
     public int Stamina, Sign, Difficulty, Stardust;
+    public bool Next;
 
     private void Awake()
     {

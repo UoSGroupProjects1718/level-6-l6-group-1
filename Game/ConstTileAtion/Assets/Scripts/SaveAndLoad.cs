@@ -24,6 +24,7 @@ public class SaveAndLoad : MonoBehaviour
     //On start, load the level-data that is currently saved
     void Awake()
     {
+        Debug.Log("SaveAndLoad Awake");
         if (!GMaster.EditMode)
         {
             Player = GameObject.Find("PersistantObject").GetComponent<PlayerData>();

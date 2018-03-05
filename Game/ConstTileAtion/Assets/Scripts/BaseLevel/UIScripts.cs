@@ -29,7 +29,7 @@ public class UIScripts : MonoBehaviour {
     public void ButtonReset()
     {
         CanvasReset();
-        GM.LoadLevel(false);
+        GM.ResetLevel();
     }
 
     //Button to take the user back to the overworld
@@ -59,10 +59,12 @@ public class UIScripts : MonoBehaviour {
 
     public void ButtonNextLevel()
     {
+        //Change the player's current level to be equal to the one they just won
+        GM.Persistant.GetComponent<PlayerData>().Difficulty++;
         //Reset the canvases
         CanvasReset();
         //Reset the level to the new level
-        GM.LoadLevel(true);
+        GM.LoadLevel(false);
     }
 
 }
