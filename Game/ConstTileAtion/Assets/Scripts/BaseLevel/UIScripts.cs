@@ -60,7 +60,7 @@ public class UIScripts : MonoBehaviour {
     public void ButtonNextLevel()
     {
         //Change the player's current level to be equal to the one they just won
-        GM.Persistant.GetComponent<PlayerData>().Difficulty++;
+        PlayerPrefs.SetInt("Difficulty", PlayerPrefs.GetInt("Difficulty")+1);
         //Reset the canvases
         CanvasReset();
         //Reset the level to the new level

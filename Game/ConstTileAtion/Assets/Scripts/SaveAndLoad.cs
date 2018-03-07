@@ -162,6 +162,8 @@ public class SaveAndLoad : MonoBehaviour
         //Update the moves counter, so that it sets it correctly on the GUI
         GMaster.UpdateMoveCounter(0);
 
+        GMaster.LevelTitle.text = CurrentLevel.LevelName;
+
         //Set the current background
         SetBackground(CurrentLevel.Background);
 

@@ -21,7 +21,6 @@ public class TempTitleTransition : MonoBehaviour
 
     public void StartGame()
     {
-        Persistant.GetComponent<PlayerData>().Sign = LevelToStartID;
         SceneManager.LoadSceneAsync("Base Level");
     }
 }

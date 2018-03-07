@@ -19,7 +19,7 @@ public class GameMaster : MonoBehaviour {
     public bool Clicked = false;
     public int CurrentlySelectedType;
     public GameObject CurrentlySelected;
-    public Text MoveCounter;
+    public Text MoveCounter, LevelTitle;
     public bool EditMode = true;
     public bool DisableHexes = false;
     public Slider LayerSlider;
@@ -157,12 +157,11 @@ public class GameMaster : MonoBehaviour {
     //Loads the level, if "next level" is true, loads the next level from the one the player is currently on
     public void LoadLevel(bool Nextlevel)
     {
-        PlayerData LevelInfo = Persistant.GetComponent<PlayerData>();
         //Call the Load function with the level information stored in the persistant object, +1 if we want the next level
         if (Nextlevel)
-            SaveAndLoadScript.LoadLevel((HexInfo.HexType)LevelInfo.Sign, LevelInfo.Difficulty+1);
+            SaveAndLoadScript.LoadLevel((HexInfo.HexType)PlayerPrefs.GetInt("Sign"), PlayerPrefs.GetInt("Difficulty") + 1);
         else
-            SaveAndLoadScript.LoadLevel((HexInfo.HexType)LevelInfo.Sign, LevelInfo.Difficulty);     
+            SaveAndLoadScript.LoadLevel((HexInfo.HexType)PlayerPrefs.GetInt("Sign"), PlayerPrefs.GetInt("Difficulty"));     
     }
 
     public void ResetLevel()
