@@ -7,7 +7,7 @@ public class OverworldZoom : MonoBehaviour
     [Header("Camera sizes")]
     public float MainCameraSize;
     public float ZoomedCameraSize;
-
+    public GameObject overworld;
     public GameObject Aries,
         Taurus,
         Gemini,
@@ -21,7 +21,7 @@ public class OverworldZoom : MonoBehaviour
         Aquarius,
         Pisces;
     public float MoveSpeed, StopSpeed;
-    public GameObject Target, MainCanvas;
+    public GameObject Target, MainCanvas, LevelCanvas;
 
     // Use this for initialization
     void Start ()
@@ -34,13 +34,17 @@ public class OverworldZoom : MonoBehaviour
     {
         if (Target != null)
         {
-            if (MainCanvas.activeSelf)
+            if (Target == MainCanvas)
             {
-                MainCanvas.SetActive(false);
+                overworld.GetComponent<Overworld>().ButtonLevelSelect(MainCanvas);
+            }
+            else
+            {
+                overworld.GetComponent<Overworld>().ButtonLevelSelect(LevelCanvas);
             }
             this.transform.position = Vector3.Lerp(this.transform.position, Target.transform.position, MoveSpeed * Time.deltaTime);
             this.GetComponent<Camera>().orthographicSize = Mathf.Lerp(this.GetComponent<Camera>().orthographicSize, ZoomedCameraSize, MoveSpeed * Time.deltaTime);
-            if (MoveSpeed * Time.deltaTime < StopSpeed)
+            if (this.transform.position.normalized == Target.transform.position.normalized)
             {
                 Target = null;
             }

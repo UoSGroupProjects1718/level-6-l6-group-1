@@ -11,7 +11,7 @@ public class Overworld : MonoBehaviour {
 
     public GameObject Persistant;
     public GameObject[] OverworldSigns;
-    public GameObject MainMenu, LevelSelect;
+    public GameObject[] Canvases;
 
     //The logical order the levels should be played through in
     public int[] Levels;
@@ -46,11 +46,22 @@ public class Overworld : MonoBehaviour {
 
     }
 
-    //Shows the level select menu or the main menu
-    public void ButtonLevelSelect()
+    //Shows the correct canvas
+    public void ButtonLevelSelect(GameObject CanvasToShow)
     {
-        MainMenu.SetActive(!MainMenu.activeSelf);
-        LevelSelect.SetActive(!MainMenu.activeSelf);
+        //Disable all of the canvases
+        foreach (var item in Canvases)
+        {
+            item.SetActive(false);
+        }
+        //find the correct canvas and set it to true
+        foreach (var item in Canvases)
+        {
+            if (item == CanvasToShow)
+            {
+                item.SetActive(true);
+            }
+        }
     }
 
 
