@@ -10,7 +10,7 @@ public class LevelCanvasLoader : MonoBehaviour {
 
 
     public Sprite[] Names;
-
+    public Sprite[] Numbers;
 
 
 	// Use this for initialization
