@@ -598,9 +598,208 @@
             ]
         },
         {
+            "LevelName": "Taurus 2",
+            "Leveltype": 1,
+            "LevelNumber": 4,
+            "HexLayers": 3,
+            "MaximumMoves": 6,
+            "Background": 0,
+            "StardustRewardForLevel": 25,
+            "StarsEarned": 0,
+            "Difficulty": 1,
+            "OptimalMoves": 0,
+            "Hexes": [
+                {
+                    "X": 0,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -1,
+                    "HexID": 1
+                },
+                {
+                    "X": 0,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 0,
+                    "HexID": 1
+                },
+                {
+                    "X": 1,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 1,
+                    "HexID": 1
+                },
+                {
+                    "X": -1,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 2,
+                    "HexID": 1
+                },
+                {
+                    "X": 1,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -3,
+                    "HexID": 1
+                },
+                {
+                    "X": 0,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 3,
+                    "HexID": 1
+                },
+                {
+                    "X": 1,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 0,
+                    "HexID": 1
+                }
+            ]
+        },
+        {
             "LevelName": "Taurus 1",
             "Leveltype": 1,
-            "LevelNumber": 3,
+            "LevelNumber": 5,
             "HexLayers": 3,
             "MaximumMoves": 2,
             "Background": 0,
@@ -617,32 +816,32 @@
                 {
                     "X": 0,
                     "Y": -1,
-                    "HexID": 12
+                    "HexID": 1
                 },
                 {
                     "X": 0,
                     "Y": 1,
-                    "HexID": 1
+                    "HexID": 12
                 },
                 {
                     "X": 1,
                     "Y": 0,
-                    "HexID": 12
+                    "HexID": 1
                 },
                 {
                     "X": 1,
                     "Y": -1,
-                    "HexID": 1
-                },
-                {
-                    "X": -1,
-                    "Y": 1,
                     "HexID": 12
                 },
                 {
                     "X": -1,
-                    "Y": 0,
+                    "Y": 1,
                     "HexID": 1
+                },
+                {
+                    "X": -1,
+                    "Y": 0,
+                    "HexID": 12
                 },
                 {
                     "X": -1,
@@ -762,7 +961,7 @@
                 {
                     "X": 3,
                     "Y": 0,
-                    "HexID": 5
+                    "HexID": 12
                 },
                 {
                     "X": 3,
@@ -797,11 +996,11 @@
             ]
         },
         {
-            "LevelName": "Taurus 2",
+            "LevelName": "Taurus 3",
             "Leveltype": 1,
-            "LevelNumber": 4,
+            "LevelNumber": 6,
             "HexLayers": 3,
-            "MaximumMoves": 6,
+            "MaximumMoves": 8,
             "Background": 0,
             "StardustRewardForLevel": 25,
             "StarsEarned": 0,
@@ -816,7 +1015,7 @@
                 {
                     "X": 0,
                     "Y": -1,
-                    "HexID": 1
+                    "HexID": 12
                 },
                 {
                     "X": 0,
@@ -826,7 +1025,7 @@
                 {
                     "X": 1,
                     "Y": 0,
-                    "HexID": 1
+                    "HexID": 12
                 },
                 {
                     "X": 1,
@@ -836,7 +1035,206 @@
                 {
                     "X": -1,
                     "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -2,
                     "HexID": 1
+                },
+                {
+                    "X": 0,
+                    "Y": 2,
+                    "HexID": 1
+                },
+                {
+                    "X": 1,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": 0,
+                    "HexID": 1
+                },
+                {
+                    "X": 2,
+                    "Y": -1,
+                    "HexID": 1
+                },
+                {
+                    "X": 2,
+                    "Y": -2,
+                    "HexID": 1
+                },
+                {
+                    "X": -2,
+                    "Y": 2,
+                    "HexID": 1
+                },
+                {
+                    "X": -2,
+                    "Y": 1,
+                    "HexID": 1
+                },
+                {
+                    "X": -2,
+                    "Y": 0,
+                    "HexID": 1
+                },
+                {
+                    "X": 3,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": -3,
+                    "HexID": 1
+                },
+                {
+                    "X": 1,
+                    "Y": 2,
+                    "HexID": 1
+                },
+                {
+                    "X": -1,
+                    "Y": -2,
+                    "HexID": 1
+                },
+                {
+                    "X": -1,
+                    "Y": 3,
+                    "HexID": 1
+                },
+                {
+                    "X": 2,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 0,
+                    "HexID": 12
+                }
+            ]
+        },
+        {
+            "LevelName": "Gemini 1",
+            "Leveltype": 2,
+            "LevelNumber": 7,
+            "HexLayers": 3,
+            "MaximumMoves": 2,
+            "Background": 0,
+            "StardustRewardForLevel": 25,
+            "StarsEarned": 0,
+            "Difficulty": 0,
+            "OptimalMoves": 0,
+            "Hexes": [
+                {
+                    "X": 0,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 1,
+                    "HexID": 2
                 },
                 {
                     "X": -1,
@@ -856,12 +1254,12 @@
                 {
                     "X": 0,
                     "Y": 2,
-                    "HexID": 1
+                    "HexID": 12
                 },
                 {
                     "X": 1,
                     "Y": -2,
-                    "HexID": 12
+                    "HexID": 2
                 },
                 {
                     "X": 1,
@@ -906,7 +1304,7 @@
                 {
                     "X": 3,
                     "Y": -3,
-                    "HexID": 1
+                    "HexID": 12
                 },
                 {
                     "X": 0,
@@ -916,7 +1314,7 @@
                 {
                     "X": 0,
                     "Y": 3,
-                    "HexID": 1
+                    "HexID": 12
                 },
                 {
                     "X": 1,
@@ -991,7 +1389,206 @@
                 {
                     "X": -3,
                     "Y": 0,
-                    "HexID": 1
+                    "HexID": 12
+                }
+            ]
+        },
+        {
+            "LevelName": "Gemini 2",
+            "Leveltype": 2,
+            "LevelNumber": 8,
+            "HexLayers": 3,
+            "MaximumMoves": 8,
+            "Background": 0,
+            "StardustRewardForLevel": 25,
+            "StarsEarned": 0,
+            "Difficulty": 2,
+            "OptimalMoves": 0,
+            "Hexes": [
+                {
+                    "X": 0,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -2,
+                    "HexID": 2
+                },
+                {
+                    "X": 0,
+                    "Y": 2,
+                    "HexID": 2
+                },
+                {
+                    "X": 1,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": -1,
+                    "HexID": 2
+                },
+                {
+                    "X": 2,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 1,
+                    "HexID": 2
+                },
+                {
+                    "X": -2,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 0,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 1,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -1,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": -3,
+                    "HexID": 12
+                },
+                {
+                    "X": 2,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": -2,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": 0,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -1,
+                    "HexID": 12
+                },
+                {
+                    "X": 3,
+                    "Y": -2,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 3,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 2,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 1,
+                    "HexID": 12
+                },
+                {
+                    "X": -3,
+                    "Y": 0,
+                    "HexID": 12
                 }
             ]
         }
