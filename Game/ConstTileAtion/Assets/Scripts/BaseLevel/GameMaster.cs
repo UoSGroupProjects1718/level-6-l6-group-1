@@ -118,10 +118,7 @@ public class GameMaster : MonoBehaviour {
 
     private void WinGame()
     {
-        if (true)
-        {
 
-        }
         Debug.Log("WinGame");
         DisableHexes = true;
         //Set the number of stars the user has earned in the UI

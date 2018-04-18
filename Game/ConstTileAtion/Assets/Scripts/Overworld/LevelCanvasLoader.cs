@@ -6,33 +6,16 @@ using UnityEngine.UI;
 public class LevelCanvasLoader : MonoBehaviour {
 
     public Image NameImage;
-
-
-
     public Sprite[] Names;
-    public Sprite[] Numbers;
+
+    private int CurrentSign;
 
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    void SwitchName(int Name)
+
+    public void SwitchName(int Name)
     {
         NameImage.sprite = Names[Name];
+        CurrentSign = Name;
     }
-
-
-
-
-
-
-
-
 }
