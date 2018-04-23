@@ -10,11 +10,9 @@ using UnityEngine.UI;
 public class Overworld : MonoBehaviour {
 
     public GameObject Persistant;
-    public GameObject[] OverworldSigns;
-    public GameObject[] Canvases;
+    //public GameObject[] OverworldSigns;
+    public List<GameObject> Canvases = new List<GameObject>();
 
-    //The logical order the levels should be played through in
-    public int[] Levels;
 	// Use this for initialization
 	void Start ()
     {
@@ -54,16 +52,16 @@ public class Overworld : MonoBehaviour {
         {
             item.SetActive(false);
         }
-        //find the correct canvas and set it to true
-        foreach (var item in Canvases)
+        GameObject CanvasToExamine = CanvasToShow;
+        //Search through all of the parents of the canvas to be enabled and enable them
+        while (CanvasToExamine.transform.parent != null && CanvasToExamine.transform.parent.GetComponent<Canvas>() != null )
         {
-            if (item == CanvasToShow)
-            {
-                item.SetActive(true);
-            }
+            //Set the parent to enabled
+            CanvasToExamine.transform.parent.gameObject.SetActive(true);
+            //Then set it as the next thing to examine the parent of
+            CanvasToExamine = CanvasToExamine.transform.parent.gameObject;
         }
+        CanvasToShow.SetActive(true);
     }
-
-
 
 }

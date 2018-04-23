@@ -63,9 +63,7 @@ public class EditorUIButtons : MonoBehaviour
         {
             SaveCanvas.gameObject.SetActive(false);
         }
-
         PopulateLoadCanvas();
-
     }
 
     //Add gameobjects to the load canvas

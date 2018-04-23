@@ -64,7 +64,7 @@ public class SaveAndLoad : MonoBehaviour
     
     public void SaveLevel()
     {
-        //Ceate a new level and add the correct data to it
+        //Create a new level and add the correct data to it
         LevelData LVLData = new LevelData();
         //Search all levels to find out if it is identical to another level
         foreach (var item in AllLevels.Levels)
@@ -116,19 +116,14 @@ public class SaveAndLoad : MonoBehaviour
         int CurrentInt = 0;
         foreach (var item in AllLevels.Levels)
         {
-            if (item.LevelNumber == CurrentInt)
+            if (item.LevelNumber > CurrentInt)
             {
-                CurrentInt++;
-                continue;
-            }
-            else
-            {
-                return CurrentInt;
+                CurrentInt = item.LevelNumber;
             }
         }
         //If the foreach loop has searched all of the objects then they are taken, so give it an
         //  ID equal to the number of objects there are +1
-        return CurrentInt++;
+        return CurrentInt+1;
     }
 
     //Loads a specific level from the JSON list
