@@ -18,11 +18,31 @@ public class PlayerData : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //Initialise PLayerPrefs values
-        //if (!PlayerPrefs.HasKey("Sign"))
-            PlayerPrefs.SetInt("Sign", 0);
-        //if (!PlayerPrefs.HasKey("Difficulty"))
-            PlayerPrefs.SetInt("Difficulty", 0);
+
 
     }
 }
+
+//class to represent player-data 
+[System.Serializable]
+public class Player
+{
+    public int Stardust;
+    public int Energy;
+    public List<PlayerScores> scores;
+    public int NumHints;
+    public int NumExtraMoves;
+    public int NumExtraSymbol;
+
+}
+
+//Class to represent Player's scores on levels
+[System.Serializable]
+public class PlayerScores
+{
+    public int Stars;
+    public int NumberOfMovesTaken;
+    public HexInfo.HexType LevelType;
+    public int LevelNumber;
+}
+
