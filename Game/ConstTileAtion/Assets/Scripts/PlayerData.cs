@@ -7,6 +7,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class PlayerData : MonoBehaviour
 {
     public bool Next;
+    public Player player;
+    string PlayerFilePath;
 
     private void Awake()
     {
@@ -18,8 +20,26 @@ public class PlayerData : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //Set the datapath
+        PlayerFilePath = Path.Combine(Application.dataPath, "PlayerData.txt");
+        LoadPlayerData();
+    }
 
+    void SavePlayerData()
+    {
+        if (File.Exists(PlayerFilePath))
+        {
+            File.Delete(PlayerFilePath);
+        }
+        //And then save the data, using pretty printed formatting
+        string JSON = JsonUtility.ToJson(player, true);
+        File.WriteAllText(PlayerFilePath, JSON);
+    }
 
+    void LoadPlayerData()
+    {
+        string JSON = File.ReadAllText(PlayerFilePath);
+        JsonUtility.FromJsonOverwrite(JSON, player);
     }
 }
 
@@ -33,7 +53,6 @@ public class Player
     public int NumHints;
     public int NumExtraMoves;
     public int NumExtraSymbol;
-
 }
 
 //Class to represent Player's scores on levels

@@ -1,0 +1,8 @@
+{
+    "Stardust": 0,
+    "Energy": 3,
+    "scores": [],
+    "NumHints": 0,
+    "NumExtraMoves": 0,
+    "NumExtraSymbol": 0
+}
