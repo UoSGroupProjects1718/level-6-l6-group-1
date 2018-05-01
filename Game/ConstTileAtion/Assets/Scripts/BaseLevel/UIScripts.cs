@@ -9,10 +9,13 @@ public class UIScripts : MonoBehaviour {
     public GameObject[] UICanvases;
     public GameMaster GM;
     public GameObject MainMenu, LoseMenu, WinMenu;
+    public PlayerData player;
+
 
     private void Start()
     {
         CanvasReset();
+        player = GameObject.Find("PersistantObject").GetComponent<PlayerData>();
     }
 
     //Sets all of the canvases to inactive
@@ -60,11 +63,20 @@ public class UIScripts : MonoBehaviour {
     public void ButtonNextLevel()
     {
         //Change the player's current level to be equal to the one they just won
-        PlayerPrefs.SetInt("Difficulty", PlayerPrefs.GetInt("Difficulty")+1);
+        player.LevelDiffToLoad += 1;
         //Reset the canvases
         CanvasReset();
         //Reset the level to the new level
         GM.LoadLevel(false);
+    }
+
+    public void ButtonNarrativeFlipOff(GameObject off)
+    {
+            off.gameObject.SetActive(false);
+    }
+    public void ButtonNarrativeFlipOn(GameObject on)
+    {
+        on.gameObject.SetActive(true);
     }
 
 }

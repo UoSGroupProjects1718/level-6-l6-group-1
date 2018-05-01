@@ -10,6 +10,11 @@ public class PlayerData : MonoBehaviour
     public Player player;
     string PlayerFilePath;
 
+    public int LevelSignToLoad, LevelDiffToLoad;
+
+
+
+
     private void Awake()
     {
         //Sets the orientation to Portrait
@@ -50,6 +55,8 @@ public class Player
     public int Stardust;
     public int Energy;
     public List<PlayerScores> scores;
+    public int PrevSign;
+    public int PrevDiff;
     public int NumHints;
     public int NumExtraMoves;
     public int NumExtraSymbol;
@@ -59,6 +66,7 @@ public class Player
 [System.Serializable]
 public class PlayerScores
 {
+    public LevelTransitionScript.LevelStates state;
     public int Stars;
     public int NumberOfMovesTaken;
     public HexInfo.HexType LevelType;

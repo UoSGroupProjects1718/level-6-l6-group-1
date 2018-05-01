@@ -26,6 +26,7 @@ public class GameMaster : MonoBehaviour {
     public Image[] StarsShown;
     public GameObject Persistant;
     SaveAndLoad SaveAndLoadScript;
+    PlayerData player;
 
         // Use this for initialization
     void Start()
@@ -33,6 +34,7 @@ public class GameMaster : MonoBehaviour {
         Debug.Log("GameMaster Start");
         //Find the gameobject that indicates this level was started from the title screen
         Persistant = GameObject.Find("PersistantObject");
+        player = Persistant.GetComponent<PlayerData>();
         SaveAndLoadScript = this.gameObject.GetComponent<SaveAndLoad>();
         if (Persistant != null)
         {
@@ -156,9 +158,9 @@ public class GameMaster : MonoBehaviour {
     {
         //Call the Load function with the level information stored in the persistant object, +1 if we want the next level
         if (Nextlevel)
-            SaveAndLoadScript.LoadLevel((HexInfo.HexType)PlayerPrefs.GetInt("Sign"), PlayerPrefs.GetInt("Difficulty") + 1);
+            SaveAndLoadScript.LoadLevel((HexInfo.HexType)player.LevelSignToLoad, player.LevelDiffToLoad + 1);
         else
-            SaveAndLoadScript.LoadLevel((HexInfo.HexType)PlayerPrefs.GetInt("Sign"), PlayerPrefs.GetInt("Difficulty"));     
+            SaveAndLoadScript.LoadLevel((HexInfo.HexType)player.LevelSignToLoad, player.LevelDiffToLoad);     
     }
 
     public void ResetLevel()

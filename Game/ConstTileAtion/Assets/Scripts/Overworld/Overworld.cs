@@ -12,24 +12,69 @@ public class Overworld : MonoBehaviour {
     public GameObject Persistant;
     //public GameObject[] OverworldSigns;
     public List<GameObject> Canvases = new List<GameObject>();
+    PlayerData playerData;
 
-	// Use this for initialization
-	void Start ()
+    public GameObject LevelScrollViewContent;
+    public GameObject LevelPrefab;
+
+    JSONLevel AllLevels = new JSONLevel();
+
+    // Use this for initialization
+    void Start ()
     {
         Persistant = GameObject.Find("PersistantObject");
+        playerData = Persistant.GetComponent<PlayerData>();
         FindLevels();
 	}
 
     //Function to find all levels and LVL ID's associated with star sign
     public void FindLevels()
     {
-        //Load all the levels
-        JSONLevel AllLevels = new JSONLevel();
-
         //Find and create the correct path to the JSON file holding the levels
         TextAsset JSONText = Resources.Load("Levels") as TextAsset;
         JsonUtility.FromJsonOverwrite(JSONText.ToString(), AllLevels);
     }
+
+    public void InstantiateLevels(int type)
+    {
+        //Search through all the levels and instantiate them into the game
+        foreach (var level in AllLevels.Levels)
+        {
+            //Initialise state to overwrite later
+            LevelTransitionScript.LevelStates state = LevelTransitionScript.LevelStates.Locked;
+
+            //Check it is the correct type
+            if (level.Leveltype == (HexInfo.HexType)type)
+            {
+                foreach (var item in playerData.player.scores)
+                {
+                    //Check they are the same type
+                    if (item.LevelType == level.Leveltype)
+                    {
+                        //Check they are the same level number
+                        if (item.LevelNumber == level.LevelNumber)
+                        {
+                            //If we find the information we need then assign it and break out of the foreach
+                            state = item.state;
+                            break;
+                        }
+                    }
+                }
+                //If the level is 0 and is locked, unlock it
+                if (level.LevelNumber == 0 && state == LevelTransitionScript.LevelStates.Locked)
+                {
+                    state = LevelTransitionScript.LevelStates.Unlocked;
+                }
+                //instantiate new level
+                GameObject newLevelObject = Instantiate(LevelPrefab);
+                newLevelObject.GetComponent<LevelTransitionScript>().Initialise(state, level.LevelNumber, type);
+                newLevelObject.transform.parent = LevelScrollViewContent.transform;
+            }
+
+        }
+    }
+
+
 
     public void ButtonLevelShower(GameObject LevelHolder)
     {
@@ -39,10 +84,9 @@ public class Overworld : MonoBehaviour {
 
     public void ButtonContinue()
     {
-
         SceneManager.LoadSceneAsync("Base Level");
-
     }
+
 
     //Shows the correct canvas
     public void ButtonLevelSelect(GameObject CanvasToShow)

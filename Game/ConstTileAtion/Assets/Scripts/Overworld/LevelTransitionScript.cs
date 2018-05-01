@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UnityEngine.SceneManagement;
+
 public class LevelTransitionScript : MonoBehaviour {
 
     public Sprite[] LevelNumberSprites;
-    public int LevelNumber;
-    public HexInfo.HexType LevelType;
-
+    public int diff, sign;
     public Image LevelNumImage;
     public Image Star1, Star2, Star3, Locked, Completed;
 
@@ -21,13 +21,13 @@ public class LevelTransitionScript : MonoBehaviour {
         TwoStars,
         ThreeStars
     }
-    public LevelStates LevelState;
+    private LevelStates levelState;
     private GameObject Persistant;
 
 	
-	void Awake ()
+	public void Initialise (LevelStates fedLevelState, int levelNum, int levelSign)
     {
-        Persistant = GameObject.Find("Persistant");
+        Persistant = GameObject.Find("PersistantObject");
 
         //Set all variable elements of the canvas to inactive
         Star1.gameObject.SetActive(false);
@@ -37,7 +37,7 @@ public class LevelTransitionScript : MonoBehaviour {
         Completed.gameObject.SetActive(false);
 
         //And then, depending on what the level should be when it is instantiated, enable various elements
-        switch (LevelState)
+        switch (fedLevelState)
         {
             case LevelStates.Locked:
                 Locked.gameObject.SetActive(true);
@@ -65,6 +65,11 @@ public class LevelTransitionScript : MonoBehaviour {
             default:
                 break;
         }
+
+        LevelNumImage.sprite = LevelNumberSprites[levelNum];
+        diff = levelNum;
+        sign = levelSign;
+        levelState = fedLevelState;
     }
 	
 	// Update is called once per frame
@@ -74,7 +79,13 @@ public class LevelTransitionScript : MonoBehaviour {
 
     public void ButtonLoadLevel()
     {
-        //Persistant.GetComponent<>
+        if (levelState != LevelStates.Locked)
+        {
+            PlayerData player = Persistant.GetComponent<PlayerData>();
+            player.LevelDiffToLoad = diff;
+            player.LevelSignToLoad = sign;
+            SceneManager.LoadSceneAsync("Base Level");
+        }
     }
 
 }
