@@ -20,6 +20,12 @@ public class PlayerData : MonoBehaviour
         //Sets the orientation to Portrait
         Screen.orientation = ScreenOrientation.Portrait;
         DontDestroyOnLoad(this);
+
+                //Set screen size for Standalone
+        #if UNITY_STANDALONE
+                Screen.SetResolution(564, 960, false);
+                Screen.fullScreen = false;
+        #endif
     }
 
     // Use this for initialization
